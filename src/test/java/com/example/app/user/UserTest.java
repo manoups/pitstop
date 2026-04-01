@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static org.hamcrest.Matchers.hasSize;
+
 class UserTest {
 
     final TestFixture testFixture = TestFixture.create();
@@ -41,7 +43,7 @@ class UserTest {
     void getUsers() {
         testFixture.givenCommands("/user/create-user.json")
                 .whenQuery(new GetUsers())
-                .expectResult(r -> r.size() == 1);
+                .expectResult(hasSize(1));
     }
 
     @Nested

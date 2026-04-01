@@ -8,5 +8,5 @@ public class OperatorId extends Id<Operator> {
         return new OperatorId(Fluxzero.generateId());
     }
 
-    public OperatorId(String id) { super(id, "op-");}
+    public OperatorId(String id) { super(id);}
 }
