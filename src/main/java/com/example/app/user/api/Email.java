@@ -1,7 +1,7 @@
 package com.example.app.user.api;
 
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.fluxcapacitor.common.search.Facet;
+import io.fluxzero.common.search.Facet;
 
 import java.util.Objects;
 

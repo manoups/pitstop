@@ -2,10 +2,10 @@ package com.example.app.refdata.mapbox;
 
 import com.example.app.refdata.api.query.SendWebRequest;
 import com.example.app.user.authentication.Sender;
-import io.fluxcapacitor.javaclient.configuration.ApplicationProperties;
-import io.fluxcapacitor.javaclient.tracking.handling.Request;
-import io.fluxcapacitor.javaclient.web.HttpRequestMethod;
-import io.fluxcapacitor.javaclient.web.WebRequest;
+import io.fluxzero.sdk.configuration.ApplicationProperties;
+import io.fluxzero.sdk.tracking.handling.Request;
+import io.fluxzero.sdk.web.HttpRequestMethod;
+import io.fluxzero.sdk.web.WebRequest;
 import lombok.Value;
 
 import java.util.Map;

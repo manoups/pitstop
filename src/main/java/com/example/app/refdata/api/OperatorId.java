@@ -1,12 +1,12 @@
 package com.example.app.refdata.api;
 
-import io.fluxcapacitor.javaclient.FluxCapacitor;
-import io.fluxcapacitor.javaclient.modeling.Id;
+import io.fluxzero.sdk.Fluxzero;
+import io.fluxzero.sdk.modeling.Id;
 
 public class OperatorId extends Id<Operator> {
     public static OperatorId createNew() {
-        return new OperatorId(FluxCapacitor.generateId());
+        return new OperatorId(Fluxzero.generateId());
     }
 
-    public OperatorId(String id) { super(id);}
+    public OperatorId(String id) { super(id, "op-");}
 }

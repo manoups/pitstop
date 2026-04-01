@@ -7,8 +7,8 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
-import io.fluxcapacitor.common.MemoizingFunction;
-import io.fluxcapacitor.javaclient.tracking.handling.authentication.UnauthenticatedException;
+import io.fluxzero.common.MemoizingFunction;
+import io.fluxzero.sdk.tracking.handling.authentication.UnauthenticatedException;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,8 +16,8 @@ import java.net.URI;
 import java.security.interfaces.RSAPublicKey;
 import java.util.Optional;
 
-import static io.fluxcapacitor.common.ObjectUtils.memoize;
-import static io.fluxcapacitor.javaclient.configuration.ApplicationProperties.getProperty;
+import static io.fluxzero.common.ObjectUtils.memoize;
+import static io.fluxzero.sdk.configuration.ApplicationProperties.getProperty;
 
 @Slf4j
 public class KeyBasedJwtVerifier implements JWTVerifier {

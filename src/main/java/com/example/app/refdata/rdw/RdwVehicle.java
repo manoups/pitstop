@@ -3,7 +3,7 @@ package com.example.app.refdata.rdw;
 import com.example.app.pitstop.api.Vehicle;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.fluxcapacitor.common.serialization.JsonUtils;
+import io.fluxzero.common.serialization.JsonUtils;
 import lombok.Value;
 
 import java.time.LocalDateTime;

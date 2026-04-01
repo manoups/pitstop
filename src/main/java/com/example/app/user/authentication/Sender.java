@@ -4,8 +4,8 @@ import com.example.app.refdata.api.OperatorId;
 import com.example.app.user.api.UserId;
 import com.example.app.user.api.UserProfile;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.fluxcapacitor.javaclient.FluxCapacitor;
-import io.fluxcapacitor.javaclient.tracking.handling.authentication.User;
+import io.fluxzero.sdk.Fluxzero;
+import io.fluxzero.sdk.tracking.handling.authentication.User;
 import lombok.Builder;
 import lombok.NonNull;
 import lombok.Value;
@@ -26,7 +26,7 @@ public class Sender implements User {
     }
 
     public static Sender createSender(UserId userId) {
-        UserProfile userProfile = FluxCapacitor.loadAggregate(userId).get();
+        UserProfile userProfile = Fluxzero.loadAggregate(userId).get();
         if (userProfile == null) {
             log.info("User {} does not exist", userId);
             return null;

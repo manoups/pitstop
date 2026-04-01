@@ -1,10 +1,10 @@
 package com.example.app.refdata.mapbox;
 
 import com.example.app.refdata.api.query.GetLocationName;
-import io.fluxcapacitor.common.serialization.JsonUtils;
-import io.fluxcapacitor.javaclient.FluxCapacitor;
-import io.fluxcapacitor.javaclient.tracking.handling.HandleQuery;
-import io.fluxcapacitor.javaclient.tracking.handling.LocalHandler;
+import io.fluxzero.common.serialization.JsonUtils;
+import io.fluxzero.sdk.Fluxzero;
+import io.fluxzero.sdk.tracking.handling.HandleQuery;
+import io.fluxzero.sdk.tracking.handling.LocalHandler;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -15,7 +15,7 @@ public class MapboxHandler {
 
     @HandleQuery
     String handle(GetLocationName query) {
-        String result = FluxCapacitor.queryAndWait(new GetMapboxData("/search/geocode/v6/reverse", Map.of(
+        String result = Fluxzero.queryAndWait(new GetMapboxData("/search/geocode/v6/reverse", Map.of(
                 "longitude", query.getLongitude().toPlainString(),
                 "latitude", query.getLatitude().toPlainString())));
         var json = JsonUtils.readTree(result);

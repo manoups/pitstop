@@ -4,8 +4,8 @@ import com.example.app.refdata.api.OperatorId;
 import com.example.app.user.api.UserId;
 import com.example.app.user.api.command.AuthorizeForOperator;
 import com.example.app.user.authentication.AuthenticationUtils;
-import io.fluxcapacitor.javaclient.test.TestFixture;
-import io.fluxcapacitor.javaclient.tracking.handling.IllegalCommandException;
+import io.fluxzero.sdk.test.TestFixture;
+import io.fluxzero.sdk.tracking.handling.IllegalCommandException;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -45,7 +45,7 @@ public class RefDataTest {
     }
 
     String createAuthorizationHeader(String user) {
-        return testFixture.getFluxCapacitor().apply(
+        return testFixture.getFluxzero().apply(
                 fc -> AuthenticationUtils.createAuthorizationHeader(new UserId(user)));
     }
 }

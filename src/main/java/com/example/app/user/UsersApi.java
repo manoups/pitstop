@@ -7,10 +7,10 @@ import com.example.app.user.api.command.CreateUser;
 import com.example.app.user.api.query.GetUserProfile;
 import com.example.app.user.api.query.GetUsers;
 import com.example.app.user.authentication.Role;
-import io.fluxcapacitor.javaclient.FluxCapacitor;
-import io.fluxcapacitor.javaclient.web.HandleGet;
-import io.fluxcapacitor.javaclient.web.HandlePost;
-import io.fluxcapacitor.javaclient.web.Path;
+import io.fluxzero.sdk.Fluxzero;
+import io.fluxzero.sdk.web.HandleGet;
+import io.fluxzero.sdk.web.HandlePost;
+import io.fluxzero.sdk.web.Path;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -20,19 +20,19 @@ import java.util.List;
 public class UsersApi {
     @HandleGet("/user")
     UserProfile getUser() {
-        return FluxCapacitor.queryAndWait(new GetUserProfile());
+        return Fluxzero.queryAndWait(new GetUserProfile());
     }
 
     @HandlePost("/users")
     UserId createUser(UserDetails details) {
-        var userId = new UserId(FluxCapacitor.generateId());
-        FluxCapacitor.sendCommandAndWait(new CreateUser(userId, details, Role.user));
+        var userId = new UserId(Fluxzero.generateId());
+        Fluxzero.sendCommandAndWait(new CreateUser(userId, details, Role.user));
         return userId;
     }
 
     @HandleGet("/users")
     List<UserProfile> getUsers() {
-        return FluxCapacitor.queryAndWait(new GetUsers());
+        return Fluxzero.queryAndWait(new GetUsers());
     }
 
 }

@@ -6,18 +6,18 @@ import com.example.app.refdata.api.OperatorId;
 import com.example.app.user.api.UserId;
 import com.example.app.user.api.command.AuthorizeForOperator;
 import com.example.app.user.authentication.Sender;
-import io.fluxcapacitor.javaclient.FluxCapacitor;
-import io.fluxcapacitor.javaclient.modeling.AssertLegal;
-import io.fluxcapacitor.javaclient.persisting.eventsourcing.Apply;
-import io.fluxcapacitor.javaclient.tracking.handling.HandleCommand;
-import io.fluxcapacitor.javaclient.tracking.handling.IllegalCommandException;
-import io.fluxcapacitor.javaclient.tracking.handling.Request;
-import io.fluxcapacitor.javaclient.tracking.handling.authentication.RequiresUser;
+import io.fluxzero.sdk.Fluxzero;
+import io.fluxzero.sdk.modeling.AssertLegal;
+import io.fluxzero.sdk.persisting.eventsourcing.Apply;
+import io.fluxzero.sdk.tracking.handling.HandleCommand;
+import io.fluxzero.sdk.tracking.handling.IllegalCommandException;
+import io.fluxzero.sdk.tracking.handling.Request;
+import io.fluxzero.sdk.tracking.handling.authentication.RequiresUser;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.Value;
 
-import static io.fluxcapacitor.javaclient.common.Message.asMessage;
+import static io.fluxzero.sdk.common.Message.asMessage;
 
 @Value
 @RequiresUser
@@ -30,7 +30,7 @@ public class RegisterOperator implements Request<OperatorId> {
 
     @HandleCommand
     OperatorId handle() {
-        FluxCapacitor.loadAggregate(getOperatorId()).assertAndApply(this);
+        Fluxzero.loadAggregate(getOperatorId()).assertAndApply(this);
         return getOperatorId();
     }
 
@@ -44,7 +44,7 @@ public class RegisterOperator implements Request<OperatorId> {
     @Apply
     Operator create() {
         if (owner != null) {
-            FluxCapacitor.loadAggregate(owner).assertAndApply(
+            Fluxzero.loadAggregate(owner).assertAndApply(
                     asMessage(new AuthorizeForOperator(owner, operatorId)).addUser(Sender.system));
         }
         return Operator.builder().operatorId(operatorId).details(details).build();

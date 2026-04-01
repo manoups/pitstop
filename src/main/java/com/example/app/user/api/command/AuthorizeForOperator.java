@@ -5,7 +5,7 @@ import com.example.app.user.api.UserId;
 import com.example.app.user.api.UserProfile;
 import com.example.app.user.authentication.RequiresRole;
 import com.example.app.user.authentication.Role;
-import io.fluxcapacitor.javaclient.persisting.eventsourcing.Apply;
+import io.fluxzero.sdk.persisting.eventsourcing.Apply;
 import jakarta.validation.constraints.NotNull;
 import lombok.Value;
 

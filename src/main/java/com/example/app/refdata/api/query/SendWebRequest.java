@@ -3,15 +3,15 @@ package com.example.app.refdata.api.query;
 import com.example.app.user.authentication.RequiresRole;
 import com.example.app.user.authentication.Role;
 import com.example.app.user.authentication.Sender;
-import io.fluxcapacitor.javaclient.FluxCapacitor;
-import io.fluxcapacitor.javaclient.tracking.handling.HandleCommand;
-import io.fluxcapacitor.javaclient.tracking.handling.HandleQuery;
-import io.fluxcapacitor.javaclient.tracking.handling.IllegalCommandException;
-import io.fluxcapacitor.javaclient.tracking.handling.authentication.UnauthorizedException;
-import io.fluxcapacitor.javaclient.tracking.handling.validation.ValidationException;
-import io.fluxcapacitor.javaclient.web.WebRequest;
-import io.fluxcapacitor.javaclient.web.WebRequestSettings;
-import io.fluxcapacitor.javaclient.web.WebResponse;
+import io.fluxzero.sdk.Fluxzero;
+import io.fluxzero.sdk.tracking.handling.HandleCommand;
+import io.fluxzero.sdk.tracking.handling.HandleQuery;
+import io.fluxzero.sdk.tracking.handling.IllegalCommandException;
+import io.fluxzero.sdk.tracking.handling.authentication.UnauthorizedException;
+import io.fluxzero.sdk.tracking.handling.validation.ValidationException;
+import io.fluxzero.sdk.web.WebRequest;
+import io.fluxzero.sdk.web.WebRequestSettings;
+import io.fluxzero.sdk.web.WebResponse;
 
 import java.util.Set;
 
@@ -25,7 +25,7 @@ public abstract class SendWebRequest {
     @HandleCommand
     public Object handle(Sender sender) {
         WebRequest request = buildRequest(WebRequest.builder(), sender).build();
-        WebResponse webResponse = FluxCapacitor.get().webRequestGateway().sendAndWait(request, requestSettings());
+        WebResponse webResponse = Fluxzero.get().webRequestGateway().sendAndWait(request, requestSettings());
         return handleResponse(webResponse, request);
     }
 

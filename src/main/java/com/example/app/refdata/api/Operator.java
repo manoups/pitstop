@@ -1,6 +1,6 @@
 package com.example.app.refdata.api;
 
-import io.fluxcapacitor.javaclient.modeling.Aggregate;
+import io.fluxzero.sdk.modeling.Aggregate;
 import lombok.Builder;
 import lombok.Value;
 

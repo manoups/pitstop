@@ -11,11 +11,11 @@ import com.example.app.user.api.UserDetails;
 import com.example.app.user.api.UserId;
 import com.example.app.user.api.command.CreateUser;
 import com.example.app.user.api.query.IsDefaultAdmin;
-import io.fluxcapacitor.common.api.HasMetadata;
-import io.fluxcapacitor.javaclient.FluxCapacitor;
-import io.fluxcapacitor.javaclient.tracking.handling.authentication.UnauthenticatedException;
-import io.fluxcapacitor.javaclient.tracking.handling.authentication.UnauthorizedException;
-import io.fluxcapacitor.javaclient.web.WebRequest;
+import io.fluxzero.common.api.HasMetadata;
+import io.fluxzero.sdk.Fluxzero;
+import io.fluxzero.sdk.tracking.handling.authentication.UnauthenticatedException;
+import io.fluxzero.sdk.tracking.handling.authentication.UnauthorizedException;
+import io.fluxzero.sdk.web.WebRequest;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.Duration;
@@ -23,9 +23,9 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.Optional;
 
-import static io.fluxcapacitor.javaclient.FluxCapacitor.queryAndWait;
-import static io.fluxcapacitor.javaclient.common.Message.asMessage;
-import static io.fluxcapacitor.javaclient.configuration.ApplicationProperties.getProperty;
+import static io.fluxzero.sdk.Fluxzero.queryAndWait;
+import static io.fluxzero.sdk.common.Message.asMessage;
+import static io.fluxzero.sdk.configuration.ApplicationProperties.getProperty;
 
 @Slf4j
 public class AuthenticationUtils {
@@ -64,7 +64,7 @@ public class AuthenticationUtils {
 
     static Sender toSender(DecodedJWT decodedJWT) {
         var userId = new UserId(decodedJWT.getSubject());
-        var userProfile = FluxCapacitor.loadAggregate(userId);
+        var userProfile = Fluxzero.loadAggregate(userId);
         if (userProfile.isEmpty()) {
             Email email = new Email(decodedJWT.getClaim("email").asString());
             boolean admin = queryAndWait(asMessage(new IsDefaultAdmin(email)).addUser(Sender.system));
@@ -81,8 +81,8 @@ public class AuthenticationUtils {
     }
 
     static String createJwtToken(UserId userId) {
-        var now = FluxCapacitor.currentClock().instant();
-        var userProfile = FluxCapacitor.loadAggregate(userId).get();
+        var now = Fluxzero.currentClock().instant();
+        var userProfile = Fluxzero.loadAggregate(userId).get();
         if (userProfile == null) {
             return null;
         }

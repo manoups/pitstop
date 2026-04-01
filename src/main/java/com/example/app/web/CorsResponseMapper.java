@@ -1,11 +1,11 @@
 package com.example.app.web;
 
-import io.fluxcapacitor.common.api.Metadata;
-import io.fluxcapacitor.javaclient.common.serialization.DeserializingMessage;
-import io.fluxcapacitor.javaclient.web.DefaultWebResponseMapper;
-import io.fluxcapacitor.javaclient.web.WebRequest;
-import io.fluxcapacitor.javaclient.web.WebResponse;
-import io.fluxcapacitor.javaclient.web.WebResponseMapper;
+import io.fluxzero.common.api.Metadata;
+import io.fluxzero.sdk.common.serialization.DeserializingMessage;
+import io.fluxzero.sdk.web.DefaultWebResponseMapper;
+import io.fluxzero.sdk.web.WebRequest;
+import io.fluxzero.sdk.web.WebResponse;
+import io.fluxzero.sdk.web.WebResponseMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

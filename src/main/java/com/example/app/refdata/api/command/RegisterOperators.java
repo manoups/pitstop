@@ -2,8 +2,8 @@ package com.example.app.refdata.api.command;
 
 import com.example.app.user.authentication.RequiresRole;
 import com.example.app.user.authentication.Role;
-import io.fluxcapacitor.javaclient.FluxCapacitor;
-import io.fluxcapacitor.javaclient.tracking.handling.HandleCommand;
+import io.fluxzero.sdk.Fluxzero;
+import io.fluxzero.sdk.tracking.handling.HandleCommand;
 import jakarta.validation.Valid;
 import lombok.SneakyThrows;
 import lombok.Value;
@@ -19,6 +19,6 @@ public class RegisterOperators {
     @HandleCommand
     @SneakyThrows
     void handle() {
-        CompletableFuture.allOf(FluxCapacitor.sendCommands(commands.toArray()).toArray(CompletableFuture[]::new)).get();
+        CompletableFuture.allOf(Fluxzero.sendCommands(commands.toArray()).toArray(CompletableFuture[]::new)).get();
     }
 }

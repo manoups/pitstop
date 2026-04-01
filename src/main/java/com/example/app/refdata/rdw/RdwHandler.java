@@ -2,14 +2,14 @@ package com.example.app.refdata.rdw;
 
 import com.example.app.pitstop.api.Vehicle;
 import com.example.app.refdata.api.query.FindVehicles;
-import io.fluxcapacitor.common.serialization.JsonUtils;
-import io.fluxcapacitor.javaclient.tracking.handling.HandleQuery;
-import io.fluxcapacitor.javaclient.tracking.handling.LocalHandler;
+import io.fluxzero.common.serialization.JsonUtils;
+import io.fluxzero.sdk.tracking.handling.HandleQuery;
+import io.fluxzero.sdk.tracking.handling.LocalHandler;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-import static io.fluxcapacitor.javaclient.FluxCapacitor.queryAndWait;
+import static io.fluxzero.sdk.Fluxzero.queryAndWait;
 import static io.micrometer.common.util.StringUtils.isBlank;
 
 @Component

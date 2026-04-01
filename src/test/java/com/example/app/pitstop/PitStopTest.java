@@ -1,8 +1,8 @@
 package com.example.app.pitstop;
 
-import io.fluxcapacitor.javaclient.test.TestFixture;
-import io.fluxcapacitor.javaclient.web.HttpRequestMethod;
-import io.fluxcapacitor.javaclient.web.WebRequest;
+import io.fluxzero.sdk.test.TestFixture;
+import io.fluxzero.sdk.web.HttpRequestMethod;
+import io.fluxzero.sdk.web.WebRequest;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

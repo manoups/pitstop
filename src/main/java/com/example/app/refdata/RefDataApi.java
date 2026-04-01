@@ -9,12 +9,12 @@ import com.example.app.refdata.api.query.FindVehicles;
 import com.example.app.refdata.api.query.GetLocationName;
 import com.example.app.refdata.api.query.GetOperators;
 import com.example.app.user.authentication.Sender;
-import io.fluxcapacitor.javaclient.FluxCapacitor;
-import io.fluxcapacitor.javaclient.tracking.handling.authentication.RequiresUser;
-import io.fluxcapacitor.javaclient.web.HandleGet;
-import io.fluxcapacitor.javaclient.web.HandlePost;
-import io.fluxcapacitor.javaclient.web.Path;
-import io.fluxcapacitor.javaclient.web.QueryParam;
+import io.fluxzero.sdk.Fluxzero;
+import io.fluxzero.sdk.tracking.handling.authentication.RequiresUser;
+import io.fluxzero.sdk.web.HandleGet;
+import io.fluxzero.sdk.web.HandlePost;
+import io.fluxzero.sdk.web.Path;
+import io.fluxzero.sdk.web.QueryParam;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -27,22 +27,22 @@ public class RefDataApi {
 
     @HandlePost("operator")
     OperatorId registerOperator(OperatorDetails operatorDetails, Sender sender) {
-        return FluxCapacitor.sendCommandAndWait(new RegisterOperator(operatorDetails, sender.getUserId()));
+        return Fluxzero.sendCommandAndWait(new RegisterOperator(operatorDetails, sender.getUserId()));
     }
 
     @HandleGet("operators")
     List<Operator> getOperators() {
-        return FluxCapacitor.queryAndWait(new GetOperators());
+        return Fluxzero.queryAndWait(new GetOperators());
     }
 
     @HandleGet("vehicles")
     List<Vehicle> getVehicles(@QueryParam String term) {
-        return FluxCapacitor.queryAndWait(new FindVehicles(term));
+        return Fluxzero.queryAndWait(new FindVehicles(term));
     }
 
     @HandleGet("location")
     String getLocationName(@QueryParam BigDecimal latitude, @QueryParam BigDecimal longitude) {
-        return FluxCapacitor.queryAndWait(new GetLocationName(latitude, longitude));
+        return Fluxzero.queryAndWait(new GetLocationName(latitude, longitude));
     }
 
 }

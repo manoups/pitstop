@@ -1,12 +1,12 @@
 package com.example.app.user.authentication;
 
 import com.example.app.user.api.UserProfile;
-import io.fluxcapacitor.common.MessageType;
-import io.fluxcapacitor.javaclient.FluxCapacitor;
-import io.fluxcapacitor.javaclient.common.HasMessage;
-import io.fluxcapacitor.javaclient.common.serialization.DeserializingMessage;
-import io.fluxcapacitor.javaclient.tracking.handling.authentication.AbstractUserProvider;
-import io.fluxcapacitor.javaclient.tracking.handling.authentication.User;
+import io.fluxzero.common.MessageType;
+import io.fluxzero.sdk.Fluxzero;
+import io.fluxzero.sdk.common.HasMessage;
+import io.fluxzero.sdk.common.serialization.DeserializingMessage;
+import io.fluxzero.sdk.tracking.handling.authentication.AbstractUserProvider;
+import io.fluxzero.sdk.tracking.handling.authentication.User;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -31,7 +31,7 @@ public class SenderProvider extends AbstractUserProvider {
 
     @Override
     public User getUserById(Object userId) {
-        UserProfile userProfile = FluxCapacitor.loadAggregate(userId, UserProfile.class).get();
+        UserProfile userProfile = Fluxzero.loadAggregate(userId, UserProfile.class).get();
         return userProfile == null ? null : Sender.builder().userId(userProfile.getUserId())
                 .userRole(userProfile.getUserRole()).operator(userProfile.getOperator()).build();
     }

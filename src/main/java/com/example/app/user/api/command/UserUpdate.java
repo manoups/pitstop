@@ -2,11 +2,11 @@ package com.example.app.user.api.command;
 
 import com.example.app.user.api.UserId;
 import com.example.app.user.api.UserProfile;
-import io.fluxcapacitor.javaclient.FluxCapacitor;
-import io.fluxcapacitor.javaclient.modeling.AssertLegal;
-import io.fluxcapacitor.javaclient.tracking.TrackSelf;
-import io.fluxcapacitor.javaclient.tracking.handling.HandleCommand;
-import io.fluxcapacitor.javaclient.tracking.handling.IllegalCommandException;
+import io.fluxzero.sdk.Fluxzero;
+import io.fluxzero.sdk.modeling.AssertLegal;
+import io.fluxzero.sdk.tracking.TrackSelf;
+import io.fluxzero.sdk.tracking.handling.HandleCommand;
+import io.fluxzero.sdk.tracking.handling.IllegalCommandException;
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotNull;
 
@@ -24,6 +24,6 @@ public interface UserUpdate {
 
     @HandleCommand
     default void handle() {
-        FluxCapacitor.loadAggregate(getUserId()).assertAndApply(this);
+        Fluxzero.loadAggregate(getUserId()).assertAndApply(this);
     }
 }

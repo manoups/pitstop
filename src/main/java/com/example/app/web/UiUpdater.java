@@ -8,16 +8,16 @@ import com.example.app.user.authentication.Sender;
 import com.example.app.web.api.UiUpdate;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.flipkart.zjsonpatch.JsonDiff;
-import io.fluxcapacitor.common.serialization.JsonUtils;
-import io.fluxcapacitor.javaclient.FluxCapacitor;
-import io.fluxcapacitor.javaclient.common.Message;
-import io.fluxcapacitor.javaclient.common.serialization.Serializer;
-import io.fluxcapacitor.javaclient.modeling.Entity;
-import io.fluxcapacitor.javaclient.tracking.handling.HandleNotification;
-import io.fluxcapacitor.javaclient.tracking.handling.authentication.RequiresUser;
-import io.fluxcapacitor.javaclient.web.HandleSocketClose;
-import io.fluxcapacitor.javaclient.web.HandleSocketOpen;
-import io.fluxcapacitor.javaclient.web.SocketSession;
+import io.fluxzero.common.serialization.JsonUtils;
+import io.fluxzero.sdk.Fluxzero;
+import io.fluxzero.sdk.common.Message;
+import io.fluxzero.sdk.common.serialization.Serializer;
+import io.fluxzero.sdk.modeling.Entity;
+import io.fluxzero.sdk.tracking.handling.HandleNotification;
+import io.fluxzero.sdk.tracking.handling.authentication.RequiresUser;
+import io.fluxzero.sdk.web.HandleSocketClose;
+import io.fluxzero.sdk.web.HandleSocketOpen;
+import io.fluxzero.sdk.web.SocketSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -68,7 +68,7 @@ public class UiUpdater {
     }
 
     <T> void handleAnyUpdate(String entityId, T before, T after, Long index, UiUpdate.Type type) {
-        Serializer serializer = FluxCapacitor.get().serializer();
+        Serializer serializer = Fluxzero.get().serializer();
         openSessions.forEach((userId, sessions) -> {
             try {
                 var sender = Sender.createSender(userId);
