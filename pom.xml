@@ -16,7 +16,7 @@
 
 	<properties>
         <java.version>24</java.version>
-        <flux-zero.version>1.95.2</flux-zero.version>
+        <flux-zero.version>1.144.0</flux-zero.version>
         <typescript.generator.maven.plugin.version>3.2.1263</typescript.generator.maven.plugin.version>
     </properties>
     <dependencyManagement>

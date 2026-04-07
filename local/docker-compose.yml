@@ -1,0 +1,72 @@
+services:
+  fluxzero-runtime:
+    image: ghcr.io/fluxzero-io/fluxzero-sdk-java/fluxzero-test:1.144.0
+    environment:
+      - FLUXZERO_LOG_RETENTION=PT30M
+    ports:
+      - "8888:8888"
+
+  fluxzero-runtime-ready:
+    image: alpine:3.20
+    depends_on:
+      - fluxzero-runtime
+    command: >
+      sh -c "apk add --no-cache curl >/dev/null &&
+             until curl -fs http://fluxzero-runtime:8888/health; do
+               echo 'waiting for fluxzero-runtime...';
+               sleep 2;
+             done"
+    restart: "no"
+
+  track-rejoice:
+    image: ghcr.io/fluxzero-io/fluxzero-sdk-java/fluxzero-proxy:1.144.0
+    environment:
+      - FLUXZERO_BASE_URL=http://fluxzero-runtime:8888
+      - FLUXZERO_APPLICATION_NAME=track-rejoice-proxy
+    ports:
+      - "8080:8080"
+
+  opensearch:
+    image: opensearchproject/opensearch:3
+    environment:
+      - discovery.type=single-node
+#      - OPENSEARCH_INITIAL_ADMIN_PASSWORD=0pen_Search
+      - DISABLE_SECURITY_PLUGIN=true
+    healthcheck:
+      test: "curl -fs http://localhost:9200/_cluster/health?wait_for_status=yellow"
+      interval: 10s
+
+  dashboards:
+    build:
+      context: dashboards
+    environment:
+      - OPENSEARCH_HOSTS=["http://opensearch:9200"]
+    ports:
+      - "5601:5601"
+    depends_on:
+      opensearch:
+        condition: service_healthy
+    healthcheck:
+      test: "curl -fs http://localhost:5601/api/status"
+
+  auditlog:
+    image: ghcr.io/fluxzero-io/fluxzero-auditlog-opensearch:v1.8.1
+    environment:
+      - FLUXZERO_BASE_URL=http://fluxzero-runtime:8888
+      - OPENSEARCH_URL=http://opensearch:9200
+      - AUDITLOG_USER=admin
+      - AUDITLOG_PASSWORD=0pen_Search
+      - DASHBOARDS_URL=http://dashboards:5601
+      - DASHBOARDS_USER=admin
+      - DASHBOARDS_PASSWORD=0pen_Search
+      - DASHBOARDS_TENANT=Rebound
+    depends_on:
+      dashboards:
+        condition: service_healthy
+      fluxzero-runtime-ready:
+        condition: service_completed_successfully
+
+
+networks:
+  postgres_network:
+    driver: bridge
