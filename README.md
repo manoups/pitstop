@@ -29,7 +29,7 @@ To get started:
     - `ng serve`
 - Please check in with colleagues or us before the training if either doesn't run.
 - Add `application-local.properties` to `/src/main/resources`. You'll receive this file before the training.
-- Via Intellij's run config menu, run: `Flux test + proxy + app` 
+- Via Intellij's run config menu, run: `Flux test + proxy + app`. Alternatively you can run `docker-compose` which also provisions a dashboard on `localhost:5601` 
 
 ## Day 1
 
