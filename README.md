@@ -13,7 +13,7 @@ and reference data queries. Feel free to reuse these parts in your own Flux appl
 ## Setting up
 
 Before continuing make sure you have created your own fork of
-the [public PitStop repository](https://github.com/flux-capacitor-io/pitstop). Next, clone this fork on your machine,
+the [public PitStop repository](https://github.com/manoups/pitstop). Next, clone this fork on your machine,
 then open the project in Intellij IDEA.
 
 The repository consists of two parts:
@@ -23,13 +23,15 @@ The repository consists of two parts:
 
 To get started:
 
-- In `File -> Project Structure` select to use Java 21.
+- In `File -> Project Structure` select to use Java 25.
 - Via Intellij's run config menu, run:
     - `mvn clean install`
     - `ng serve`
 - Please check in with colleagues or us before the training if either doesn't run.
 - Add `application-local.properties` to `/src/main/resources`. You'll receive this file before the training.
-- Via Intellij's run config menu, run: `Flux test + proxy + app`. Alternatively you can run `docker-compose` + `App` which also provisions a dashboard on `localhost:5601` 
+- There are two options to bootstrap the BE
+  - Via Intellij's run config menu, run: `Flux test + proxy + app`. 
+  - Via Intellij's run config menu, run: `docker-compose`. This option also provisions a dashboard on `localhost:5601`. 
 
 ## Day 1
 

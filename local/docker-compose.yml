@@ -18,13 +18,26 @@ services:
              done"
     restart: "no"
 
-  track-rejoice:
+  pitstop-proxy:
     image: ghcr.io/fluxzero-io/fluxzero-sdk-java/fluxzero-proxy:1.144.0
     environment:
       - FLUXZERO_BASE_URL=http://fluxzero-runtime:8888
-      - FLUXZERO_APPLICATION_NAME=track-rejoice-proxy
+      - FLUXZERO_APPLICATION_NAME=pitstop-proxy
     ports:
       - "8080:8080"
+
+  pitstop-local:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    # Requires: mvn -pl local-seed -am clean package -DskipTests
+    depends_on:
+      fluxzero-runtime-ready:
+        condition: service_completed_successfully
+    environment:
+      - ENVIRONMENT=local
+      - FLUX_APPLICATION_NAME=pitstop
+      - FLUX_BASE_URL=ws://fluxzero-runtime:8888
 
   opensearch:
     image: opensearchproject/opensearch:3
