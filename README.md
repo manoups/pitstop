@@ -54,6 +54,14 @@ using the provided UI.
 **Note:** please make sure you don't structurally modify any of the objects used in the REST endpoints, as that may
 break the UI.
 
+### Questions
+- In the UI, many components use objects from the backend (see components importing `@pitstop/typescript/pitstop`). How is this module created?
+- In the UI, after login the front-end queries the backend for the user's profile (GetUserProfile). Why?
+- How are the user profile data being populated in the BE in this workflow?
+- Once we issue a command (_e.g._ `DeclareIncident`) the BE will validate the command synchronously (accept/reject decision) but it will further process it asynchronously. How does the processing outcome reach the UI? Provide detailed data flow.
+- Since each request/command has a payload and access control is defined on message level, why do we need multiple endpoints? _I.e._ instead of sending an `IncidentDetails` to `/api/incidents` and an `Offer` to `/api/incidents/{incidentId}/offers`, why don't we send any payload to a `/api/handle`  
+
+
 ## Day 2
 
 Now that we have our minimum viable version of the App, let's add some more advanced features.
