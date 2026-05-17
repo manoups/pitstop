@@ -3,9 +3,10 @@ import {TabItemComponent} from "./tab-item/tab-item.component";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
-  selector: 'app-tab-panel',
-  templateUrl: './tab-panel.component.html',
-  styleUrls: ['./tab-panel.component.scss'],
+    selector: 'app-tab-panel',
+    templateUrl: './tab-panel.component.html',
+    styleUrls: ['./tab-panel.component.scss'],
+    standalone: false
 })
 export class TabPanelComponent implements AfterContentInit {
   route: ActivatedRoute = inject(ActivatedRoute);

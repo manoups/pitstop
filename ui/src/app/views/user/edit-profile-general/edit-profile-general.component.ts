@@ -7,9 +7,10 @@ import {View} from "../../../common/view";
 import {AuthenticationService} from "../../../authentication/authentication.service";
 
 @Component({
-  selector: 'app-edit-profile-general',
-  templateUrl: './edit-profile-general.component.html',
-  styleUrls: ['./edit-profile-general.component.scss']
+    selector: 'app-edit-profile-general',
+    templateUrl: './edit-profile-general.component.html',
+    styleUrls: ['./edit-profile-general.component.scss'],
+    standalone: false
 })
 @Handler()
 export class EditProfileGeneralComponent extends View {

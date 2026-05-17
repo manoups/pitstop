@@ -4,10 +4,11 @@ import {AbstractValueAccessorComponent} from "../../component/value-accessor.com
 import moment from "moment";
 
 @Component({
-  selector: 'app-time-picker',
-  templateUrl: './time-picker.component.html',
-  styleUrls: ['./time-picker.component.scss'],
-  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => TimePickerComponent), multi: true }],
+    selector: 'app-time-picker',
+    templateUrl: './time-picker.component.html',
+    styleUrls: ['./time-picker.component.scss'],
+    providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => TimePickerComponent), multi: true }],
+    standalone: false
 })
 export class TimePickerComponent extends AbstractValueAccessorComponent<TimePickerInfo> {
   _value: TimePickerInfo;

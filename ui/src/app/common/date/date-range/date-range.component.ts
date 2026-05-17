@@ -21,12 +21,13 @@ import {TimePickerInfo} from "../time-picker/time-picker.component";
 import {DateRangeUtils} from "./date-range.utils";
 
 @Component({
-  selector: 'app-date-range',
-  templateUrl: './date-range.component.html',
-  styleUrls: ['./date-range.component.scss'],
-  providers: [
-    {provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => DateRangeComponent), multi: true}
-  ]
+    selector: 'app-date-range',
+    templateUrl: './date-range.component.html',
+    styleUrls: ['./date-range.component.scss'],
+    providers: [
+        { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => DateRangeComponent), multi: true }
+    ],
+    standalone: false
 })
 export class DateRangeComponent extends AbstractValueAccessorComponent<DateFieldRange> implements OnInit, AfterViewInit {
   utils = DateRangeUtils;

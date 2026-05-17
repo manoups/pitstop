@@ -8,10 +8,11 @@ import {take} from 'rxjs';
 import {AuthenticationService} from "../../authentication/authentication.service";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
-  providers: [WebsocketService]
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.scss'],
+    providers: [WebsocketService],
+    standalone: false
 })
 @Handler()
 export class HomeComponent extends View implements OnInit {

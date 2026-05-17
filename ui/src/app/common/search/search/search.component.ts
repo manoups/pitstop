@@ -7,13 +7,14 @@ import {AbstractValueAccessorComponent} from "../../component/value-accessor.com
 import {Placement} from "@popperjs/core/lib/enums";
 
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss'],
-  providers: [
-    {provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => SearchComponent), multi: true}
-  ],
-  host: {'class' : 'input-group'}
+    selector: 'app-search',
+    templateUrl: './search.component.html',
+    styleUrls: ['./search.component.scss'],
+    providers: [
+        { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => SearchComponent), multi: true }
+    ],
+    host: { 'class': 'input-group' },
+    standalone: false
 })
 export class SearchComponent extends AbstractValueAccessorComponent<any> implements OnInit {
 

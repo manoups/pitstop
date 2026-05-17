@@ -18,9 +18,10 @@ import {publishEvent} from "../app-common-utils";
 import {cloneDeep} from "lodash";
 
 @Component({
-  selector: 'app-modal',
-  templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.scss']
+    selector: 'app-modal',
+    templateUrl: './modal.component.html',
+    styleUrls: ['./modal.component.scss'],
+    standalone: false
 })
 @Handler()
 export class ModalComponent extends View implements AfterViewInit {

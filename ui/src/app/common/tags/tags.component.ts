@@ -4,12 +4,13 @@ import {NG_VALUE_ACCESSOR} from '@angular/forms';
 import {extractValue, removeItem} from '../utils';
 
 @Component({
-  selector: 'app-tags',
-  templateUrl: './tags.component.html',
-  styleUrls: ['./tags.component.scss'],
-  providers: [
-    {provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => TagsComponent), multi: true}
-  ]
+    selector: 'app-tags',
+    templateUrl: './tags.component.html',
+    styleUrls: ['./tags.component.scss'],
+    providers: [
+        { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => TagsComponent), multi: true }
+    ],
+    standalone: false
 })
 export class TagsComponent extends AbstractValueAccessorComponent<any[]> implements OnInit {
 

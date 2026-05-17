@@ -2,7 +2,8 @@ import {Injectable, Pipe, PipeTransform} from "@angular/core";
 import {UserProfile} from '@pitstop/typescriptmodels/pitstop';
 
 @Pipe({
-  name: 'formatUser'
+    name: 'formatUser',
+    standalone: false
 })
 @Injectable()
 export class FormatUserPipe implements PipeTransform {

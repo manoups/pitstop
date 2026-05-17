@@ -4,9 +4,10 @@ import {Handler} from "src/app/common/handler";
 import {HandleCommand} from "../handle-command";
 
 @Component({
-  selector: 'app-confirmation-modal',
-  templateUrl: './confirmation-modal.component.html',
-  styleUrls: ['./confirmation-modal.component.css']
+    selector: 'app-confirmation-modal',
+    templateUrl: './confirmation-modal.component.html',
+    styleUrls: ['./confirmation-modal.component.css'],
+    standalone: false
 })
 @Handler()
 export class ConfirmationModalComponent implements AfterViewInit {

@@ -15,8 +15,9 @@ import {TypeaheadWindowComponent} from "./typeahead-window.component";
 import {Placement} from "@popperjs/core/lib/enums";
 
 @Directive({
-  selector: "[typeahead]",
-  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => TypeaheadDirective), multi: true }]
+    selector: "[typeahead]",
+    providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => TypeaheadDirective), multi: true }],
+    standalone: false
 })
 export class TypeaheadDirective implements ControlValueAccessor {
   resultObservable: Observable<any[]>;

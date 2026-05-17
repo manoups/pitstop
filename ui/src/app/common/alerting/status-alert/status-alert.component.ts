@@ -2,9 +2,10 @@ import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Outpu
 import {AlertLevel} from './alert';
 
 @Component({
-  selector: 'app-status-alert',
-  templateUrl: './status-alert.component.html',
-  styleUrls: ['./status-alert.component.css']
+    selector: 'app-status-alert',
+    templateUrl: './status-alert.component.html',
+    styleUrls: ['./status-alert.component.css'],
+    standalone: false
 })
 export class StatusAlertComponent implements OnInit, AfterViewInit {
   @Input() type: AlertLevel;

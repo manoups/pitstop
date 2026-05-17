@@ -7,9 +7,10 @@ import {View} from '../../../common/view';
 import {RegisterOperatorComponent} from '../../user/register-operator/register-operator.component';
 
 @Component({
-  selector: 'app-top-menu-bar',
-  templateUrl: './top-menu-bar.component.html',
-  styleUrls: ['./top-menu-bar.component.scss']
+    selector: 'app-top-menu-bar',
+    templateUrl: './top-menu-bar.component.html',
+    styleUrls: ['./top-menu-bar.component.scss'],
+    standalone: false
 })
 @Handler()
 export class TopMenuBarComponent extends View {

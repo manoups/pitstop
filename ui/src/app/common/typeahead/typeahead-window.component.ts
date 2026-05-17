@@ -16,13 +16,12 @@ import {EventGateway} from "../event-gateway";
 import {Placement} from "@popperjs/core/lib/enums";
 
 @Component({
-  selector: 'app-typeahead-window',
-  templateUrl: './typeahead-window.component.html',
-  styleUrls: ['./typeahead-window.component.scss'],
-  imports: [
-    CommonModule, HighlightComponent
-  ],
-  standalone: true
+    selector: 'app-typeahead-window',
+    templateUrl: './typeahead-window.component.html',
+    styleUrls: ['./typeahead-window.component.scss'],
+    imports: [
+        CommonModule, HighlightComponent
+    ]
 })
 export class TypeaheadWindowComponent {
   values: any[] = [];

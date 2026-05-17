@@ -6,13 +6,14 @@ import {NG_VALUE_ACCESSOR} from "@angular/forms";
 import { DebouncedFunc } from 'lodash';
 
 @Component({
-  selector: 'app-local-filter',
-  templateUrl: './local-filter.component.html',
-  styleUrls: ['./local-filter.component.scss'],
-  providers: [
-    {provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => LocalFilterComponent), multi: true}
-  ],
-  host: {'class' : 'input-group'}
+    selector: 'app-local-filter',
+    templateUrl: './local-filter.component.html',
+    styleUrls: ['./local-filter.component.scss'],
+    providers: [
+        { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => LocalFilterComponent), multi: true }
+    ],
+    host: { 'class': 'input-group' },
+    standalone: false
 })
 export class LocalFilterComponent {
   private filterTerm: string;

@@ -2,7 +2,8 @@ import {Inject, Injectable, Pipe, PipeTransform} from '@angular/core';
 import {lodash} from './utils';
 
 @Pipe({
-  name: 'sentenceCase'
+    name: 'sentenceCase',
+    standalone: false
 })
 @Injectable()
 export class SentenceCasePipe implements PipeTransform {

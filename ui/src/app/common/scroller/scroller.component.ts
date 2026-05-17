@@ -1,9 +1,10 @@
 import {AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 
 @Component({
-  selector: 'app-scroller',
-  templateUrl: './scroller.component.html',
-  styleUrls: ['./scroller.component.scss']
+    selector: 'app-scroller',
+    templateUrl: './scroller.component.html',
+    styleUrls: ['./scroller.component.scss'],
+    standalone: false
 })
 export class ScrollerComponent implements AfterViewInit {
 

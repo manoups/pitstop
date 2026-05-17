@@ -8,9 +8,10 @@ import lodash from "lodash";
 import {TranslateDirective} from "../../utils/translate.directive";
 
 @Component({
-  selector: 'app-date-period-range',
-  templateUrl: './date-period-range.component.html',
-  styleUrls: ['./date-period-range.component.scss']
+    selector: 'app-date-period-range',
+    templateUrl: './date-period-range.component.html',
+    styleUrls: ['./date-period-range.component.scss'],
+    standalone: false
 })
 export class DatePeriodRangeComponent {
   @Input() period: DateFieldRange;

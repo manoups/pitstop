@@ -3,7 +3,8 @@ import translations from 'src/assets/translation/translations.json';
 import {AppCommonUtils} from "../app-common-utils";
 
 @Directive({
-    selector: '[appTranslate]'
+    selector: '[appTranslate]',
+    standalone: false
 })
 export class TranslateDirective {
     static translations = translations;

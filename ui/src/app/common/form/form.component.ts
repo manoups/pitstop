@@ -2,9 +2,10 @@ import {Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/c
 import {checkValidity} from '../utils';
 
 @Component({
-  selector: 'app-form',
-  templateUrl: './form.component.html',
-  styleUrls: ['./form.component.css']
+    selector: 'app-form',
+    templateUrl: './form.component.html',
+    styleUrls: ['./form.component.css'],
+    standalone: false
 })
 export class FormComponent {
   @ViewChild('form', {static: true}) form: ElementRef;

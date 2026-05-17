@@ -5,12 +5,13 @@ import {uuid} from '../utils';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
 
 @Component({
-  selector: 'app-multi-input',
-  templateUrl: './multi-input.component.html',
-  styleUrls: ['./multi-input.component.scss'],
-  providers: [
-    {provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => MultiInputComponent), multi: true}
-  ],
+    selector: 'app-multi-input',
+    templateUrl: './multi-input.component.html',
+    styleUrls: ['./multi-input.component.scss'],
+    providers: [
+        { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => MultiInputComponent), multi: true }
+    ],
+    standalone: false
 })
 export class MultiInputComponent extends AbstractValueAccessorComponent<any[]> {
 

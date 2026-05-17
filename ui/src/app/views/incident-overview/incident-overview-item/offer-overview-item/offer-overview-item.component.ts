@@ -8,9 +8,10 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 @Component({
-  selector: 'app-offer-overview-item',
-  templateUrl: './offer-overview-item.component.html',
-  styleUrls: ['./offer-overview-item.component.scss']
+    selector: 'app-offer-overview-item',
+    templateUrl: './offer-overview-item.component.html',
+    styleUrls: ['./offer-overview-item.component.scss'],
+    standalone: false
 })
 @Handler()
 export class OfferOverviewItemComponent extends View {

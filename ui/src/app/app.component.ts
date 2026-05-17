@@ -13,9 +13,10 @@ import * as jsonPatch from "fast-json-patch";
 import {HandleEvent} from './common/handle-event';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    standalone: false
 })
 @Handler()
 export class AppComponent {

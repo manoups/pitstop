@@ -5,13 +5,14 @@ import {NG_VALUE_ACCESSOR} from '@angular/forms';
  * Component used to filter (search in) a list of results
  */
 @Component({
-  selector: 'app-filter',
-  templateUrl: './filter.component.html',
-  styleUrls: ['./filter.component.scss'],
-  providers: [
-    {provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => FilterComponent), multi: true}
-  ],
-  host: {'class': 'input-group'}
+    selector: 'app-filter',
+    templateUrl: './filter.component.html',
+    styleUrls: ['./filter.component.scss'],
+    providers: [
+        { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => FilterComponent), multi: true }
+    ],
+    host: { 'class': 'input-group' },
+    standalone: false
 })
 export class FilterComponent implements OnInit {
   @Input() filterTerm: string;

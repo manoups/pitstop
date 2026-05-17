@@ -2,7 +2,8 @@ import {AfterViewInit, Directive, ElementRef} from "@angular/core";
 import tooltip from "bootstrap/js/dist/tooltip";
 
 @Directive({
-    selector: '[data-bs-toggle="tooltip"], [data-bs-title]'
+    selector: '[data-bs-toggle="tooltip"], [data-bs-title]',
+    standalone: false
 })
 export class BootstrapTooltipDirective implements AfterViewInit {
     private bootstrapElement;

@@ -8,7 +8,8 @@ import {AppCommonUtils} from "../../app-common-utils";
 @Component({
     selector: 'app-date-picker',
     templateUrl: './date-picker.component.html',
-    styleUrls: ['./date-picker.component.scss']
+    styleUrls: ['./date-picker.component.scss'],
+    standalone: false
 })
 export class DatePickerComponent {
     @Input() yearSpan: number = 10;
