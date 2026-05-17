@@ -3,7 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {HttpClientModule} from "@angular/common/http";
+import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 import {CommonModule, DecimalPipe, TitleCasePipe} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {CommonsModule} from "./common/commons.module";
@@ -53,83 +53,73 @@ const authConfig: AuthConfig = {
   requireHttps: false
 };
 
-@NgModule({
-  declarations: [
-    FormatUserPipe,
-
-    AppComponent,
-
-    // Signed in
-    HomeComponent,
-    TopMenuBarComponent,
-    BreadcrumbComponent,
-
-    // User profile
-    EditProfileComponent,
-    EditProfileGeneralComponent,
-
-    // pitstop
-    IncidentOverviewComponent,
-    IncidentOverviewItemComponent,
-    IncidentModalComponent,
-    MapBoxComponent,
-    OfferModalComponent,
-    RegisterOperatorComponent,
-    OfferOverviewItemComponent,
-    AssistanceOverviewItemComponent,
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    AppRoutingModule,
-    CommonModule,
-    FormsModule,
-    CommonsModule,
-    OAuthModule.forRoot({
-      resourceServer: {
-        allowedUrls: [`${environment.auth.domain}/admin/v1`, `${environment.auth.domain}/management/v1`, `${environment.auth.domain}/auth/v1/`],
-        sendAccessToken: true,
-      },
-    }),
-    NgxMapboxGLModule.withConfig({
-      accessToken: environment.mapbox.accessToken,
-    })
-  ],
-  providers: [
-    HandlerRegistry,
-    CommandGateway,
-    QueryGateway,
-    EventGateway,
-    TitleCasePipe,
-    TimestampPipe,
-    DecimalPipe,
-    RouterHandler,
-    {provide: LOCALE_ID, useValue: 'en-NL'},
-    {
-      provide: APP_INITIALIZER,
-      useFactory: (stateHandler: StatehandlerService) => () => stateHandler.initStateHandler(),
-      multi: true,
-      deps: [StatehandlerService],
-    },
-    {
-      provide: AuthConfig,
-      useValue: authConfig,
-    },
-    {
-      provide: StatehandlerProcessorService,
-      useClass: StatehandlerProcessorServiceImpl,
-    },
-    {
-      provide: StatehandlerService,
-      useClass: StatehandlerServiceImpl,
-    },
-    {
-      provide: OAuthStorage,
-      useClass: StorageService,
-    }
-  ],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        FormatUserPipe,
+        AppComponent,
+        // Signed in
+        HomeComponent,
+        TopMenuBarComponent,
+        BreadcrumbComponent,
+        // User profile
+        EditProfileComponent,
+        EditProfileGeneralComponent,
+        // pitstop
+        IncidentOverviewComponent,
+        IncidentOverviewItemComponent,
+        IncidentModalComponent,
+        MapBoxComponent,
+        OfferModalComponent,
+        RegisterOperatorComponent,
+        OfferOverviewItemComponent,
+        AssistanceOverviewItemComponent,
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        CommonModule,
+        FormsModule,
+        CommonsModule,
+        OAuthModule.forRoot({
+            resourceServer: {
+                allowedUrls: [`${environment.auth.domain}/admin/v1`, `${environment.auth.domain}/management/v1`, `${environment.auth.domain}/auth/v1/`],
+                sendAccessToken: true,
+            },
+        }),
+        NgxMapboxGLModule.withConfig({
+            accessToken: environment.mapbox.accessToken,
+        })], providers: [
+        HandlerRegistry,
+        CommandGateway,
+        QueryGateway,
+        EventGateway,
+        TitleCasePipe,
+        TimestampPipe,
+        DecimalPipe,
+        RouterHandler,
+        { provide: LOCALE_ID, useValue: 'en-NL' },
+        {
+            provide: APP_INITIALIZER,
+            useFactory: (stateHandler: StatehandlerService) => () => stateHandler.initStateHandler(),
+            multi: true,
+            deps: [StatehandlerService],
+        },
+        {
+            provide: AuthConfig,
+            useValue: authConfig,
+        },
+        {
+            provide: StatehandlerProcessorService,
+            useClass: StatehandlerProcessorServiceImpl,
+        },
+        {
+            provide: StatehandlerService,
+            useClass: StatehandlerServiceImpl,
+        },
+        {
+            provide: OAuthStorage,
+            useClass: StorageService,
+        },
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule {
   constructor(injector: Injector) {
     InjectorProvider.injector = injector;

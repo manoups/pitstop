@@ -1,6 +1,6 @@
 import {tap} from "rxjs/operators";
 import {Observable, Subscriber, take} from "rxjs";
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Alert, AlertLevel} from "./alerting/status-alert/alert";
 import {QueryGateway} from "./query-gateway";

@@ -2,7 +2,7 @@ import {NgModule} from "@angular/core";
 import {BrowserModule} from "@angular/platform-browser";
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
+import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 import {TypeaheadWindowComponent} from "./typeahead/typeahead-window.component";
 import {PopoverComponent} from "./popover/popover.component";
 import {TooltipComponent} from "./tooltip/tooltip.component";
@@ -98,31 +98,25 @@ export const commonDeclarations = [
   OverviewComponent,
 ]
 
-@NgModule({
-    declarations: [
+@NgModule({ declarations: [
         commonDeclarations,
         DefaultValueDirective
     ],
-  providers: [
-    SentenceCasePipe,
-    {provide: RouteReuseStrategy, useClass: RouteStrategyService},
-    WebsocketService
-  ],
-  imports: [
-    BrowserModule,
-    CommonModule,
-    FormsModule,
-    HttpClientModule,
-    TypeaheadWindowComponent,
-    PopoverComponent,
-    HighlightComponent,
-  ],
     exports: [
         commonDeclarations,
         PaginationComponent,
         DefaultValueDirective,
-    ]
-})
+    ], imports: [BrowserModule,
+        CommonModule,
+        FormsModule,
+        TypeaheadWindowComponent,
+        PopoverComponent,
+        HighlightComponent], providers: [
+        SentenceCasePipe,
+        { provide: RouteReuseStrategy, useClass: RouteStrategyService },
+        WebsocketService,
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class CommonsModule {
 
 }
