@@ -10,7 +10,6 @@ import com.example.app.user.api.Email;
 import com.example.app.user.api.UserDetails;
 import com.example.app.user.api.UserId;
 import com.example.app.user.api.command.CreateUser;
-import com.example.app.user.api.query.IsDefaultAdmin;
 import io.fluxzero.common.api.HasMetadata;
 import io.fluxzero.sdk.Fluxzero;
 import io.fluxzero.sdk.tracking.handling.authentication.UnauthenticatedException;
@@ -19,12 +18,8 @@ import io.fluxzero.sdk.web.WebRequest;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.Duration;
-import java.util.Date;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
-import static io.fluxzero.sdk.Fluxzero.queryAndWait;
-import static io.fluxzero.sdk.common.Message.asMessage;
 import static io.fluxzero.sdk.configuration.ApplicationProperties.getProperty;
 
 @Slf4j
@@ -67,17 +62,45 @@ public class AuthenticationUtils {
         var userProfile = Fluxzero.loadAggregate(userId);
         if (userProfile.isEmpty()) {
             Email email = new Email(decodedJWT.getClaim("email").asString());
-            boolean admin = queryAndWait(asMessage(new IsDefaultAdmin(email)).addUser(Sender.system));
-            userProfile.assertAndApply(new CreateUser(userId, UserDetails.builder()
-                    .firstName(decodedJWT.getClaim("given_name").asString())
-                    .lastName(decodedJWT.getClaim("family_name").asString())
-                    .email(email).build(), admin ? Role.admin : Role.user));
+            List<String> roles = getRealmRoles(decodedJWT);
+            roles.addAll(getRoles(decodedJWT, getProperty("jwk.client-id")));
+            boolean admin = roles.contains("admin");
+                    userProfile.assertAndApply(new CreateUser(userId, UserDetails.builder()
+                            .firstName(decodedJWT.getClaim("given_name").asString())
+                            .lastName(decodedJWT.getClaim("family_name").asString())
+                            .email(email).build(), admin ? Role.admin : Role.user));
         }
         return Sender.createSender(userProfile.get());
     }
 
+    private static List<String> getRealmRoles(DecodedJWT decodedJWT) {
+        try {
+            Map<String, Object> realmAccess = decodedJWT.getClaim("realm_access").asMap();
+            if (realmAccess == null) {
+                return Collections.emptyList();
+            }
+            return (List<String>) realmAccess.get("roles");
+        } catch (Exception e) {
+            return Collections.emptyList();
+        }
+    }
+
+    private static List<String> getRoles(DecodedJWT decodedJWT, String clientId) {
+        try {
+            Map<String, Object> resourceAccess = decodedJWT.getClaim("resource_access").asMap();
+            if (resourceAccess == null) {
+                return Collections.emptyList();
+            }
+            Map<String, Object> clientAccess = (Map<String, Object>) resourceAccess.get(clientId);
+            if (clientAccess == null) {return Collections.emptyList();}
+            return (List<String>) resourceAccess.get("roles");
+        } catch (Exception e) {
+            return Collections.emptyList();
+        }
+    }
+
     public static String createAuthorizationHeader(UserId userId) {
-        return "Bearer "  + createJwtToken(userId);
+        return "Bearer " + createJwtToken(userId);
     }
 
     static String createJwtToken(UserId userId) {
