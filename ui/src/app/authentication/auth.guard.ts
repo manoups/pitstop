@@ -1,18 +1,36 @@
-import {inject, Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot} from '@angular/router';
-import {Observable} from 'rxjs';
-import {AuthenticationService} from "./authentication.service";
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, Router, RouterStateSnapshot} from '@angular/router';
+import {KeycloakAuthGuard, KeycloakService} from "keycloak-angular";
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
-  private auth: AuthenticationService = inject(AuthenticationService);
+export class AuthGuard extends KeycloakAuthGuard {
+  constructor(
+    protected override readonly router: Router,
+    protected readonly keycloak: KeycloakService
+  ) {
+    super(router, keycloak);
+  }
 
-  public canActivate(_: ActivatedRouteSnapshot, state: RouterStateSnapshot,): Observable<boolean> | Promise<boolean> | Promise<any> | boolean {
-    if (!this.auth.authenticated) {
-      return this.auth.authenticate();
+  async isAccessAllowed(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Promise<boolean> {
+    if (!this.authenticated) {
+      await this.keycloak.login({
+        redirectUri: window.location.origin + state.url,
+      });
+      return false;
     }
-    return this.auth.authenticated;
+
+    // Check for required roles if specified in route data
+    const requiredRoles = route.data['roles'] as string[];
+
+    if (!requiredRoles || requiredRoles.length === 0) {
+      return true;
+    }
+
+    return requiredRoles.every((role) => this.roles.includes(role));
   }
 }

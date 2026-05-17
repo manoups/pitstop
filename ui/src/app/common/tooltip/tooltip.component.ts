@@ -2,10 +2,11 @@ import {AfterViewInit, Component, ElementRef, Input, ViewChild, ViewEncapsulatio
 import {BasePlacement, Placement} from "@popperjs/core/lib/enums";
 
 @Component({
-  selector: 'app-tooltip',
-  templateUrl: './tooltip.component.html',
-  styleUrls: ['./tooltip.component.css'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-tooltip',
+    templateUrl: './tooltip.component.html',
+    styleUrls: ['./tooltip.component.css'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class TooltipComponent implements AfterViewInit {
   @Input() wide: boolean = true;

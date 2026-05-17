@@ -2,9 +2,10 @@ import {AfterViewInit, Component, ElementRef, Input, TemplateRef} from '@angular
 import {lodash} from "../utils";
 
 @Component({
-  selector: 'app-form-field',
-  templateUrl: './form-field.component.html',
-  styleUrls: ['./form-field.component.scss']
+    selector: 'app-form-field',
+    templateUrl: './form-field.component.html',
+    styleUrls: ['./form-field.component.scss'],
+    standalone: false
 })
 export class FormFieldComponent implements AfterViewInit {
   @Input() label: string;

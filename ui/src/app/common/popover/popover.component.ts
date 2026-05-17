@@ -5,11 +5,10 @@ import {CommonModule} from "@angular/common";
 import {Handler} from "src/app/common/handler";
 
 @Component({
-  selector: 'app-popover',
-  templateUrl: './popover.component.html',
-  styleUrls: ['./popover.component.scss'],
-  standalone: true,
-  imports: [CommonModule],
+    selector: 'app-popover',
+    templateUrl: './popover.component.html',
+    styleUrls: ['./popover.component.scss'],
+    imports: [CommonModule]
 })
 @Handler()
 export class PopoverComponent {

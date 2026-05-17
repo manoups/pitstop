@@ -46,12 +46,13 @@ const times = [
 ];
 
 @Component({
-  selector: 'app-date-field',
-  templateUrl: './date-field.component.html',
-  styleUrls: ['./date-field.component.scss'],
-  providers: [
-    {provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => DateFieldComponent), multi: true}
-  ]
+    selector: 'app-date-field',
+    templateUrl: './date-field.component.html',
+    styleUrls: ['./date-field.component.scss'],
+    providers: [
+        { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => DateFieldComponent), multi: true }
+    ],
+    standalone: false
 })
 export class DateFieldComponent extends AbstractValueAccessorComponent<string> implements OnInit, AfterViewInit {
   timestamp: string;

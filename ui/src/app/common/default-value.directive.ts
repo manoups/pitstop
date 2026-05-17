@@ -2,7 +2,8 @@ import {AfterViewInit, Directive, HostListener, Input} from '@angular/core';
 import {NgModel} from '@angular/forms';
 
 @Directive({
-  selector: '[appDefaultValue]'
+    selector: '[appDefaultValue]',
+    standalone: false
 })
 export class DefaultValueDirective implements AfterViewInit {
 

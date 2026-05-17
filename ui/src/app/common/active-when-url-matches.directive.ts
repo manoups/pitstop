@@ -3,7 +3,8 @@ import {NavigationEnd, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 
 @Directive({
-    selector: '[routerLink]'
+    selector: '[routerLink]',
+    standalone: false
 })
 export class ActiveWhenUrlMatchesDirective implements OnInit, OnDestroy {
 

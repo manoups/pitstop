@@ -9,9 +9,10 @@ import {Incident} from '@pitstop/typescriptmodels/pitstop';
 import {IncidentModalComponent} from './incident-details-modal/incident-modal.component';
 
 @Component({
-  selector: 'app-incident-overview',
-  templateUrl: './incident-overview.component.html',
-  styleUrls: ['./incident-overview.component.scss']
+    selector: 'app-incident-overview',
+    templateUrl: './incident-overview.component.html',
+    styleUrls: ['./incident-overview.component.scss'],
+    standalone: false
 })
 @Handler()
 export class IncidentOverviewComponent extends View implements AfterViewInit {

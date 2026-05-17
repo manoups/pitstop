@@ -4,9 +4,10 @@ import {GeoLocation} from '@pitstop/typescriptmodels/pitstop';
 import {sendQuery} from '../../../common/app-common-utils';
 
 @Component({
-  selector: 'app-map-box',
-  templateUrl: './map-box.component.html',
-  styleUrls: ['./map-box.component.scss']
+    selector: 'app-map-box',
+    templateUrl: './map-box.component.html',
+    styleUrls: ['./map-box.component.scss'],
+    standalone: false
 })
 @Handler()
 export class MapBoxComponent {

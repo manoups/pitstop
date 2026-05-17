@@ -5,9 +5,10 @@ import {View} from '../../../common/view';
 import {toTitleCase} from '../../../common/utils';
 
 @Component({
-  selector: 'app-incident-details-modal',
-  templateUrl: './incident-modal.component.html',
-  styleUrls: ['./incident-modal.component.scss']
+    selector: 'app-incident-details-modal',
+    templateUrl: './incident-modal.component.html',
+    styleUrls: ['./incident-modal.component.scss'],
+    standalone: false
 })
 @Handler()
 export class IncidentModalComponent extends View implements OnInit {

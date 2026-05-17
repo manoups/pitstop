@@ -2,13 +2,8 @@ import {NgModule} from '@angular/core';
 import {ActivatedRoute, ActivatedRouteSnapshot, Route, RouterModule} from '@angular/router';
 import {HomeComponent} from "./views/home/home.component";
 import {Observable} from "rxjs";
-import {subscribeTo} from "./common/app-common-utils";
-import {map} from "rxjs/operators";
-import {EditProfileComponent} from "./views/user/edit-profile.component";
-import {EditProfileGeneralComponent} from "./views/user/edit-profile-general/edit-profile-general.component";
 import {AuthGuard} from "./authentication/auth.guard";
 import {IncidentOverviewComponent} from './views/incident-overview/incident-overview.component';
-import {RegisterOperatorComponent} from './views/user/register-operator/register-operator.component';
 
 const routes: FluxHostRoute[] = [
   {

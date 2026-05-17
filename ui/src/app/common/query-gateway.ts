@@ -1,5 +1,5 @@
 import {RequestGateway, RequestOptions} from './request-gateway';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {ElementRef, Injectable} from '@angular/core';
 import {Observable, ReplaySubject, Subject, take} from 'rxjs';
 import {HandlerRegistry} from "./handler-registry.service";

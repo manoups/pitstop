@@ -3,7 +3,8 @@ import {Placement} from "@popperjs/core/lib/enums";
 import {PopoverComponent} from "./popover.component";
 
 @Directive({
-  selector: "[onPopover]"
+    selector: "[onPopover]",
+    standalone: false
 })
 export class PopoverDirective {
   @Input() popoverContent: TemplateRef<any>;

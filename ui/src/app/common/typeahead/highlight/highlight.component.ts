@@ -2,11 +2,10 @@ import {Component, Input} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 @Component({
-  selector: 'app-highlight',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './highlight.component.html',
-  styleUrls: ['./highlight.component.scss']
+    selector: 'app-highlight',
+    imports: [CommonModule],
+    templateUrl: './highlight.component.html',
+    styleUrls: ['./highlight.component.scss']
 })
 export class HighlightComponent {
   parts: string[];

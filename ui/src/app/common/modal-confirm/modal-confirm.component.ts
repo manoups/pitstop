@@ -3,9 +3,10 @@ import {AppContext} from "../../app-context";
 import {checkValidity} from "../utils";
 
 @Component({
-  selector: 'modal-confirm-autofocus',
-  templateUrl: './modal-confirm.component.html',
-  styleUrls: ['./modal-confirm.component.scss'],
+    selector: 'modal-confirm-autofocus',
+    templateUrl: './modal-confirm.component.html',
+    styleUrls: ['./modal-confirm.component.scss'],
+    standalone: false
 })
 export class ModalConfirmAutofocus {
   @Input() data: ModalConfirmAutofocusData;

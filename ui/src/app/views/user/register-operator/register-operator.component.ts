@@ -4,9 +4,10 @@ import {Handler} from "src/app/common/handler";
 import {OperatorDetails} from '@pitstop/typescriptmodels/pitstop';
 
 @Component({
-  selector: 'app-register-operator',
-  templateUrl: './register-operator.component.html',
-  styleUrls: ['./register-operator.component.scss']
+    selector: 'app-register-operator',
+    templateUrl: './register-operator.component.html',
+    styleUrls: ['./register-operator.component.scss'],
+    standalone: false
 })
 @Handler()
 export class RegisterOperatorComponent extends View {

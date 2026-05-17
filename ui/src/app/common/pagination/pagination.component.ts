@@ -2,9 +2,10 @@ import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '
 import {lodash} from '../utils';
 
 @Component({
-  selector: 'app-pagination',
-  templateUrl: './pagination.component.html',
-  styleUrls: ['./pagination.component.scss']
+    selector: 'app-pagination',
+    templateUrl: './pagination.component.html',
+    styleUrls: ['./pagination.component.scss'],
+    standalone: false
 })
 export class PaginationComponent<T> implements OnChanges {
   @Input() maxPerPage = 20;

@@ -5,13 +5,14 @@ import {NG_VALUE_ACCESSOR} from '@angular/forms';
 import {dispatchChangeEvent, extractValue, lodash} from '../utils';
 
 @Component({
-  selector: 'app-select',
-  templateUrl: './select.component.html',
-  styleUrls: ['./select.component.scss'],
-  providers: [
-    {provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => SelectComponent), multi: true}
-  ],
-  host: {'class' : 'input-group'}
+    selector: 'app-select',
+    templateUrl: './select.component.html',
+    styleUrls: ['./select.component.scss'],
+    providers: [
+        { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => SelectComponent), multi: true }
+    ],
+    host: { 'class': 'input-group' },
+    standalone: false
 })
 export class SelectComponent extends AbstractValueAccessorComponent<any> implements OnInit {
   selectedValue;

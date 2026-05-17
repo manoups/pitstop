@@ -3,7 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi} from "@angular/common/http";
 import {CommonModule, DecimalPipe, TitleCasePipe} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {CommonsModule} from "./common/commons.module";
@@ -19,9 +19,7 @@ import {BreadcrumbComponent} from './views/home/top-menu-bar/bread-crump/breadcr
 import {RouterHandler} from "./routing/router-handler";
 import {EditProfileGeneralComponent} from "./views/user/edit-profile-general/edit-profile-general.component";
 import {EditProfileComponent} from "./views/user/edit-profile.component";
-import {AuthConfig, OAuthModule, OAuthStorage} from "angular-oauth2-oidc";
 import {environment} from '../environments/environment';
-import {StorageService} from "./authentication/storage.service";
 import {StatehandlerService, StatehandlerServiceImpl} from "./authentication/statehandler.service";
 import {
   StatehandlerProcessorService,
@@ -32,42 +30,31 @@ import {IncidentOverviewComponent} from './views/incident-overview/incident-over
 import {
   IncidentOverviewItemComponent
 } from './views/incident-overview/incident-overview-item/incident-overview-item.component';
-import {
-  IncidentModalComponent
-} from './views/incident-overview/incident-details-modal/incident-modal.component';
-import { MapBoxComponent } from './views/incident-overview/current-location/map-box.component';
+import {IncidentModalComponent} from './views/incident-overview/incident-details-modal/incident-modal.component';
+import {MapBoxComponent} from './views/incident-overview/current-location/map-box.component';
 import {NgxMapboxGLModule} from 'ngx-mapbox-gl';
-import { OfferModalComponent } from './views/incident-overview/offer-modal/offer-modal.component';
-import { RegisterOperatorComponent } from './views/user/register-operator/register-operator.component';
-import { OfferOverviewItemComponent } from './views/incident-overview/incident-overview-item/offer-overview-item/offer-overview-item.component';
-import { AssistanceOverviewItemComponent } from './views/incident-overview/incident-overview-item/assistance-overview-item/assistance-overview-item.component';
-
-const authConfig: AuthConfig = {
-  scope: 'openid profile email offline_access',
-  responseType: 'code',
-  oidc: true,
-  clientId: environment.auth.clientId,
-  issuer: environment.auth.domain,
-  redirectUri: `${environment.auth.redirectBaseUri}/auth/callback`,
-  postLogoutRedirectUri: environment.auth.redirectBaseUri,
-  requireHttps: false
-};
+import {OfferModalComponent} from './views/incident-overview/offer-modal/offer-modal.component';
+import {RegisterOperatorComponent} from './views/user/register-operator/register-operator.component';
+import {
+  OfferOverviewItemComponent
+} from './views/incident-overview/incident-overview-item/offer-overview-item/offer-overview-item.component';
+import {
+  AssistanceOverviewItemComponent
+} from './views/incident-overview/incident-overview-item/assistance-overview-item/assistance-overview-item.component';
+import {initializeKeycloak} from "./init-keycloak";
+import {KeycloakBearerInterceptor, KeycloakService} from "keycloak-angular";
 
 @NgModule({
   declarations: [
     FormatUserPipe,
-
     AppComponent,
-
     // Signed in
     HomeComponent,
     TopMenuBarComponent,
     BreadcrumbComponent,
-
     // User profile
     EditProfileComponent,
     EditProfileGeneralComponent,
-
     // pitstop
     IncidentOverviewComponent,
     IncidentOverviewItemComponent,
@@ -78,24 +65,14 @@ const authConfig: AuthConfig = {
     OfferOverviewItemComponent,
     AssistanceOverviewItemComponent,
   ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
+  bootstrap: [AppComponent], imports: [BrowserModule,
     AppRoutingModule,
     CommonModule,
     FormsModule,
     CommonsModule,
-    OAuthModule.forRoot({
-      resourceServer: {
-        allowedUrls: [`${environment.auth.domain}/admin/v1`, `${environment.auth.domain}/management/v1`, `${environment.auth.domain}/auth/v1/`],
-        sendAccessToken: true,
-      },
-    }),
     NgxMapboxGLModule.withConfig({
       accessToken: environment.mapbox.accessToken,
-    })
-  ],
-  providers: [
+    })], providers: [
     HandlerRegistry,
     CommandGateway,
     QueryGateway,
@@ -104,16 +81,18 @@ const authConfig: AuthConfig = {
     TimestampPipe,
     DecimalPipe,
     RouterHandler,
+    KeycloakService,
     {provide: LOCALE_ID, useValue: 'en-NL'},
     {
       provide: APP_INITIALIZER,
-      useFactory: (stateHandler: StatehandlerService) => () => stateHandler.initStateHandler(),
+      useFactory: initializeKeycloak,
       multi: true,
-      deps: [StatehandlerService],
+      deps: [KeycloakService],
     },
     {
-      provide: AuthConfig,
-      useValue: authConfig,
+      provide: HTTP_INTERCEPTORS,
+      useClass: KeycloakBearerInterceptor,
+      multi: true,
     },
     {
       provide: StatehandlerProcessorService,
@@ -123,12 +102,8 @@ const authConfig: AuthConfig = {
       provide: StatehandlerService,
       useClass: StatehandlerServiceImpl,
     },
-    {
-      provide: OAuthStorage,
-      useClass: StorageService,
-    }
-  ],
-  bootstrap: [AppComponent]
+    provideHttpClient(withInterceptorsFromDi())
+  ]
 })
 export class AppModule {
   constructor(injector: Injector) {

@@ -10,9 +10,10 @@ import {AppContext} from '../../../app-context';
 import {AppCommonUtils} from '../../../common/app-common-utils';
 
 @Component({
-  selector: 'app-incident-overview-item',
-  templateUrl: './incident-overview-item.component.html',
-  styleUrls: ['./incident-overview-item.component.scss']
+    selector: 'app-incident-overview-item',
+    templateUrl: './incident-overview-item.component.html',
+    styleUrls: ['./incident-overview-item.component.scss'],
+    standalone: false
 })
 @Handler()
 export class IncidentOverviewItemComponent extends View implements OnInit {

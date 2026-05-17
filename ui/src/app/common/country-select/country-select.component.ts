@@ -4,12 +4,13 @@ import {AbstractValueAccessorComponent} from "../component/value-accessor.compon
 import {NG_VALUE_ACCESSOR} from "@angular/forms";
 
 @Component({
-  selector: 'app-country-select',
-  templateUrl: './country-select.component.html',
-  styleUrls: ['./country-select.component.scss'],
-  providers: [
-    {provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => CountrySelectComponent), multi: true}
-  ],
+    selector: 'app-country-select',
+    templateUrl: './country-select.component.html',
+    styleUrls: ['./country-select.component.scss'],
+    providers: [
+        { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => CountrySelectComponent), multi: true }
+    ],
+    standalone: false
 })
 export class CountrySelectComponent extends AbstractValueAccessorComponent<string> {
   @Input() required: boolean;

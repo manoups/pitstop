@@ -6,9 +6,10 @@ import {AppContext} from '../../../app-context';
 import {Observable} from 'rxjs';
 
 @Component({
-  selector: 'app-offer-modal',
-  templateUrl: './offer-modal.component.html',
-  styleUrls: ['./offer-modal.component.scss']
+    selector: 'app-offer-modal',
+    templateUrl: './offer-modal.component.html',
+    styleUrls: ['./offer-modal.component.scss'],
+    standalone: false
 })
 @Handler()
 export class OfferModalComponent extends View {
