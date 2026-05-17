@@ -93,7 +93,7 @@ public class AuthenticationUtils {
             }
             Map<String, Object> clientAccess = (Map<String, Object>) resourceAccess.get(clientId);
             if (clientAccess == null) {return Collections.emptyList();}
-            return (List<String>) resourceAccess.get("roles");
+            return (List<String>) clientAccess.get("roles");
         } catch (Exception e) {
             return Collections.emptyList();
         }
