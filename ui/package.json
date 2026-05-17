@@ -28,6 +28,8 @@
     "bootstrap-icons": "^1.10.5",
     "fast-json-patch": "^3.1.0",
     "jquery": "^3.6.3",
+    "keycloak-angular": "^19.0.2",
+    "keycloak-js": "^26.2.4",
     "lodash": "^4.17.21",
     "lossless-json": "^4.0.1",
     "mapbox-gl": "^2.9.2",
