@@ -31,7 +31,10 @@ To get started:
 - Add `application-local.properties` to `/src/main/resources`. You'll receive this file before the training.
 - There are two options to bootstrap the BE
   - Via Intellij's run config menu, run: `Flux test + proxy + app`. 
-  - Via Intellij's run config menu, run: `docker-compose`. This option also provisions a dashboard on `localhost:5601`. 
+  - Via Intellij's run config menu, run: `docker-compose`. This option also provisions a dashboard on `localhost:5601`.
+- There are 2 existing users in the domain:
+  - `pitstop-admin` with password `admin`
+  - `pitstop-user` with password `user`
 
 ## Day 1
 

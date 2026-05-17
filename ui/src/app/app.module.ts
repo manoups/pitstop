@@ -19,9 +19,7 @@ import {BreadcrumbComponent} from './views/home/top-menu-bar/bread-crump/breadcr
 import {RouterHandler} from "./routing/router-handler";
 import {EditProfileGeneralComponent} from "./views/user/edit-profile-general/edit-profile-general.component";
 import {EditProfileComponent} from "./views/user/edit-profile.component";
-import {AuthConfig, OAuthModule, OAuthStorage} from "angular-oauth2-oidc";
 import {environment} from '../environments/environment';
-import {StorageService} from "./authentication/storage.service";
 import {StatehandlerService, StatehandlerServiceImpl} from "./authentication/statehandler.service";
 import {
   StatehandlerProcessorService,
@@ -32,9 +30,7 @@ import {IncidentOverviewComponent} from './views/incident-overview/incident-over
 import {
   IncidentOverviewItemComponent
 } from './views/incident-overview/incident-overview-item/incident-overview-item.component';
-import {
-  IncidentModalComponent
-} from './views/incident-overview/incident-details-modal/incident-modal.component';
+import {IncidentModalComponent} from './views/incident-overview/incident-details-modal/incident-modal.component';
 import {MapBoxComponent} from './views/incident-overview/current-location/map-box.component';
 import {NgxMapboxGLModule} from 'ngx-mapbox-gl';
 import {OfferModalComponent} from './views/incident-overview/offer-modal/offer-modal.component';
@@ -105,10 +101,6 @@ import {KeycloakBearerInterceptor, KeycloakService} from "keycloak-angular";
     {
       provide: StatehandlerService,
       useClass: StatehandlerServiceImpl,
-    },
-    {
-      provide: OAuthStorage,
-      useClass: StorageService,
     },
     provideHttpClient(withInterceptorsFromDi())
   ]
