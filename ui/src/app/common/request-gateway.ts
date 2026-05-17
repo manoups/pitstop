@@ -94,6 +94,7 @@ export abstract class RequestGateway extends Gateway {
     console.debug("sending " + this.method, url, payload, options);
     switch (this.method) {
       case "get":
+        return this.http[this.method](url, options);
       case "delete":
         return this.http[this.method](url, options);
       default:
