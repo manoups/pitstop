@@ -32,9 +32,10 @@ To get started:
 - There are two options to bootstrap the BE
   - Via Intellij's run config menu, run: `Flux test + proxy + app`. 
   - Via Intellij's run config menu, run: `docker-compose`. This option also provisions a dashboard on `localhost:5601`.
-- There are 2 existing users in the domain:
+- There are 3 existing users in the domain:
   - `pitstop-admin` with password `admin`
   - `pitstop-user` with password `user`
+  - `user2` with password `user`
 
 ## Day 1
 
