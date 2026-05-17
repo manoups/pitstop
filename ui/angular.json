@@ -45,7 +45,9 @@
               "lodash",
               "bootstrap/js/dist/tooltip",
               "bootstrap/js/dist/modal",
-              "moment"
+              "moment",
+              "ngx-mapbox-gl",
+              "mapbox-gl"
             ],
             "outputPath": "dist/pitstop",
             "index": "src/index.html",
