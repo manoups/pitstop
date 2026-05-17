@@ -5,7 +5,7 @@ import {publishEvent, subscribeTo} from '../../common/app-common-utils';
 import {Handler} from "../../common/handler";
 import {View} from "../../common/view";
 import {take} from 'rxjs';
-import {AuthenticationService} from "../../authentication/authentication.service";
+import {KeycloakService} from "keycloak-angular";
 
 @Component({
     selector: 'app-home',
@@ -18,7 +18,7 @@ import {AuthenticationService} from "../../authentication/authentication.service
 export class HomeComponent extends View implements OnInit {
   context = AppContext;
   socketService: WebsocketService<any> = inject(WebsocketService<any>);
-  authService: AuthenticationService = inject(AuthenticationService);
+  authService: KeycloakService = inject(KeycloakService);
 
   ngOnInit(): void {
     const subscription = subscribeTo("/api/user");
@@ -27,10 +27,10 @@ export class HomeComponent extends View implements OnInit {
         if (userProfile) {
           this.socketService.initialise("api/updates", update => publishEvent(update.type, update));
         } else {
-          this.authService.signout();
+          this.authService.logout();
         }
       },
-      error: () => this.authService.signout()
+      error: () => this.authService.logout()
     });
     subscription.subscribe(userProfile => AppContext.setUserProfile(userProfile));
   }

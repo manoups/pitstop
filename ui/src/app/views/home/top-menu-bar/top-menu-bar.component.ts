@@ -2,9 +2,9 @@ import {Component, inject} from '@angular/core';
 import {AppContext} from "../../../app-context";
 import {AppCommonUtils} from "../../../common/app-common-utils";
 import {Handler} from "src/app/common/handler";
-import {AuthenticationService} from "../../../authentication/authentication.service";
 import {View} from '../../../common/view';
 import {RegisterOperatorComponent} from '../../user/register-operator/register-operator.component';
+import {KeycloakService} from "keycloak-angular";
 
 @Component({
     selector: 'app-top-menu-bar',
@@ -15,10 +15,10 @@ import {RegisterOperatorComponent} from '../../user/register-operator/register-o
 @Handler()
 export class TopMenuBarComponent extends View {
   appContext = AppContext;
-  authService = inject(AuthenticationService);
+  authService = inject(KeycloakService);
 
   signOut() {
-    this.authService.signout();
+    this.authService.logout();
     AppContext.setUserProfile(undefined);
     AppCommonUtils.navigateToUrl("/login");
   }

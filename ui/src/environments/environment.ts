@@ -11,9 +11,9 @@ export const environment = {
     accessToken: "pk.eyJ1IjoiZmx1eGhvc3QiLCJhIjoiY201dHNnOHF6MTBkazJuc2VmMWZsYWE0dCJ9.FoPjoC7H7HPLUpfSui_BPg",
   },
   auth: {
-    domain: "https://track-rejoice-dev-7kxie6.us1.zitadel.cloud",
-    clientId: "365704552508327461",
-    redirectBaseUri: "http://localhost:4200",
+    url: 'http://localhost:8082',
+    realm: 'pitstop',
+    clientId: 'angular-app',
   }
 };
 
