@@ -100,8 +100,8 @@ services:
       KC_HOSTNAME_STRICT_BACKCHANNEL: true
       KC_HTTP_RELATIVE_PATH: /
       KC_HTTP_ENABLED: true
-      KC_HEALTH_ENABLED: false
-      KC_METRICS_ENABLED: false
+      KC_HEALTH_ENABLED: true
+      KC_METRICS_ENABLED: true
     extra_hosts:
       - "host.docker.internal:host-gateway"
     healthcheck:
