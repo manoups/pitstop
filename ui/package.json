@@ -23,7 +23,7 @@
     "@angular/platform-browser-dynamic": "^20.3.21",
     "@angular/router": "^20.3.21",
     "@pitstop/typescriptmodels": "file:../target/typescript-generator/example-pitstop-typescriptmodels-1.0.0.tgz",
-    "angular-oauth2-oidc": "^17.0.2",
+    "angular-oauth2-oidc": "^20.0.2",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.5",
     "fast-json-patch": "^3.1.0",
