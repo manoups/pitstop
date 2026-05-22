@@ -1,16 +1,16 @@
 <nav class="mb-4">
   <div class="nav nav-tabs" role="tablist">
     <ng-content select=".nav-bar-prefix"></ng-content>
-    <ng-container *ngFor="let tab of tabs">
+    @for (tab of tabs; track tab) {
       <a [ngClass]="(tab.tabClass ? tab.tabClass : '') + (tab == activeComponent ? ' active ' : ' ') + (tab.externalLink ? ' pe-4 ' : ' ')"
-         class="position-relative nav-link px-3" (click)="activateTab(tab)"
-         style="cursor: pointer">
+        class="position-relative nav-link px-3" (click)="activateTab(tab)"
+        style="cursor: pointer">
         <ng-template [ngTemplateOutlet]="tab.tabHeader"></ng-template>
-        <ng-container *ngIf="tab.externalLink">
+        @if (tab.externalLink) {
           <i class="fs-6 bi bi-box-arrow-up-right position-absolute" [style.top.px]="10" [style.right.px]="5"></i>
-        </ng-container>
+        }
       </a>
-    </ng-container>
+    }
     <ng-content select=".nav-bar-prefix"></ng-content>
   </div>
 </nav>

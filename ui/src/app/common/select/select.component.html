@@ -1,13 +1,17 @@
 <ng-content select=".input-group-prepend"></ng-content>
 <select [(ngModel)]="selectedValue" (ngModelChange)="onModelChange()" [compareWith]="equalsFunction"
-        [ngClass]="{'border-invalid' : required && !selectedValue, 'custom-select-sm': small}"
-        [required]="required" [disabled]="disabled" [id]="id ? id + '-select' : ''" class="form-select rounded">
-  <option *ngIf="nullOption || placeholder" [hidden]="!nullOption" [ngValue]="null">{{disabled ? '' : placeholder}}</option>
-  <ng-container *ngFor="let option of _options">
-    <option [ngValue]="option" [disabled]="optionSelectable && isDisabled(option)" *ngIf="!optionVisible || isVisible(option)">
-      {{selectedValue === option ? selectedFormatter(option) : formatter(option)}}
-    </option>
-  </ng-container>
+  [ngClass]="{'border-invalid' : required && !selectedValue, 'custom-select-sm': small}"
+  [required]="required" [disabled]="disabled" [id]="id ? id + '-select' : ''" class="form-select rounded">
+  @if (nullOption || placeholder) {
+    <option [hidden]="!nullOption" [ngValue]="null">{{disabled ? '' : placeholder}}</option>
+  }
+  @for (option of _options; track option) {
+    @if (!optionVisible || isVisible(option)) {
+      <option [ngValue]="option" [disabled]="optionSelectable && isDisabled(option)">
+        {{selectedValue === option ? selectedFormatter(option) : formatter(option)}}
+      </option>
+    }
+  }
 </select>
 <ng-content select=".invalid-feedback"></ng-content>
 <ng-content select=".valid-feedback"></ng-content>

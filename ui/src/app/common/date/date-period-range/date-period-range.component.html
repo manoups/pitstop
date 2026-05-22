@@ -1,6 +1,6 @@
-<ng-container *ngIf="period">
+@if (period) {
   <app-date-range [(ngModel)]="period" (ngModelChange)="dateRangeChanged($event)" class="btn-group"
-                  [inputMode]="'button'" [ranges]="ranges">
+    [inputMode]="'button'" [ranges]="ranges">
     <div class="w-auto" role="group">
       <i class="me-2 bi bi-calendar3"></i>
       <span class="me-2 notranslate">{{dateLabel}}</span>
@@ -15,4 +15,4 @@
       </div>
     </ng-container>
   </app-date-range>
-</ng-container>
+}

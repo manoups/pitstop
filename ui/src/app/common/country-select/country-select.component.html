@@ -1,7 +1,7 @@
 <select [(ngModel)]="country" (ngModelChange)="changeCountry($event)"
-        [ngClass]="{'border-invalid' : required && !country}"
-        [required]="required" [disabled]="disabled" class="form-select rounded">
-  <ng-container *ngFor="let country of countries">
+  [ngClass]="{'border-invalid' : required && !country}"
+  [required]="required" [disabled]="disabled" class="form-select rounded">
+  @for (country of countries; track country) {
     <option [ngValue]="country" [innerHTML]="countryFormatter(country)"></option>
-  </ng-container>
+  }
 </select>

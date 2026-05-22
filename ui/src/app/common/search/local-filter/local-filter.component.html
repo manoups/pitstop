@@ -1,11 +1,15 @@
 <div class="position-relative">
   <ng-content select=".input-group-prepend"></ng-content>
   <input [(ngModel)]="term" [placeholder]="placeholder"
-         [attr.type]="searching ? 'text' : 'search'" autocomplete="off" class="form-control rounded-end"/>
-  <span class="input-group-text border-0 search-icon bg-transparent" *ngIf="!term">
-    <span class="fa-light fa-search"></span>
-  </span>
-  <span class="input-group-text border-0 search-icon bg-transparent" *ngIf="searching">
-    <span class="spinner-border spinner-border-sm text-secondary" role="status"></span>
-  </span>
+    [attr.type]="searching ? 'text' : 'search'" autocomplete="off" class="form-control rounded-end"/>
+  @if (!term) {
+    <span class="input-group-text border-0 search-icon bg-transparent">
+      <span class="fa-light fa-search"></span>
+    </span>
+  }
+  @if (searching) {
+    <span class="input-group-text border-0 search-icon bg-transparent">
+      <span class="spinner-border spinner-border-sm text-secondary" role="status"></span>
+    </span>
+  }
 </div>

@@ -17,27 +17,37 @@
   </div>
   <div class="flex-nowrap">
     <div class="row gx-0 bg-light">
-      <div *ngFor="let c of sortedCalendar" class="col text-center">
-        <span class="h2">{{c.month}}</span>
-      </div>
+      @for (c of sortedCalendar; track c) {
+        <div class="col text-center">
+          <span class="h2">{{c.month}}</span>
+        </div>
+      }
     </div>
     <div class="row gx-0 bg-light mb-2">
-      <ng-container *ngFor="let c of sortedCalendar">
-        <div *ngFor="let day of days" class="col text-center px-0">{{day}}</div>
-      </ng-container>
+      @for (c of sortedCalendar; track c) {
+        @for (day of days; track day) {
+          <div class="col text-center px-0">{{day}}</div>
+        }
+      }
     </div>
     <div class="row gx-1 notranslate">
-      <div *ngFor="let c of sortedCalendar" class="col">
-        <div *ngFor="let w of c.weeks | keyvalue" class="row gx-0">
-          <button *ngFor="let d of w.value.days" class="col day-cell btn btn-light p-0 m-0 border-0" [disabled]="d.disabled"
+      @for (c of sortedCalendar; track c) {
+        <div class="col">
+          @for (w of c.weeks | keyvalue; track w) {
+            <div class="row gx-0">
+              @for (d of w.value.days; track d) {
+                <button class="col day-cell btn btn-light p-0 m-0 border-0" [disabled]="d.disabled"
                   [ngClass]="d.cssClasses" (click)="changeDate(d.date)" [appAutoFocus]="isSelectedDate(d.date)" (mouseenter)="cellMouseEnter(d)"
                   (keydown.arrowLeft)="previous('day'); $event.preventDefault()" (keydown.arrowRight)="next('day'); $event.preventDefault()"
                   (keydown.arrowUp)="previous('week'); $event.preventDefault();" (keydown.arrowDown)="next('week'); $event.preventDefault()"
                   (keydown.enter)="updateDate(); $event.preventDefault()">
-            {{d.date.date()}}
-          </button>
+                  {{d.date.date()}}
+                </button>
+              }
+            </div>
+          }
         </div>
-      </div>
+      }
     </div>
   </div>
 </div>

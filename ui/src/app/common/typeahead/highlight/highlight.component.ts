@@ -1,9 +1,9 @@
 import {Component, Input} from '@angular/core';
-import {CommonModule} from '@angular/common';
+
 
 @Component({
     selector: 'app-highlight',
-    imports: [CommonModule],
+    imports: [],
     templateUrl: './highlight.component.html',
     styleUrls: ['./highlight.component.scss']
 })

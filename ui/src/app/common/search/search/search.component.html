@@ -3,24 +3,28 @@
   <span [ngStyle]="styling(r)">{{inputFormatter(r)}}</span>
 </ng-template>
 <input [(ngModel)]="inputModel" (ngModelChange)="!$event ? onBlur() : null"
-       [typeahead]="onInput" [resultFormatter]="resultFormatter"
-       (selectItem)="onSelect($event.item)" [inputFormatter]="inputFormatter"
-       [resultTemplate]= "styling?rt:null" [minCharacters]="minCharacters"
-       (focus)="onFocus()" (blur)="onBlur()" [placement]="placement"
-       [attr.disabled]="disabled ? true : null" [placeholder]="placeholder" [id]="id ? id + '-input' : ''"
-       [required]="required" autocomplete="chrome-off"
-       [attr.type]="searching ? 'text' : 'search'" class="form-control rounded-end"/>
-<span class="input-group-text border-0 search-icon bg-transparent"
-      *ngIf="!inputModel || inputModel.requiresEditing">
-  <span class="bi {{newValueTemplate ? 'bi-plus-circle' : 'bi-search'}}"></span>
-</span>
-<span class="input-group-text border-0 search-icon bg-transparent" *ngIf="searching && inputModel">
-  <span class="spinner-border spinner-border-sm text-secondary" role="status"></span>
-</span>
+  [typeahead]="onInput" [resultFormatter]="resultFormatter"
+  (selectItem)="onSelect($event.item)" [inputFormatter]="inputFormatter"
+  [resultTemplate]= "styling?rt:null" [minCharacters]="minCharacters"
+  (focus)="onFocus()" (blur)="onBlur()" [placement]="placement"
+  [attr.disabled]="disabled ? true : null" [placeholder]="placeholder" [id]="id ? id + '-input' : ''"
+  [required]="required" autocomplete="chrome-off"
+  [attr.type]="searching ? 'text' : 'search'" class="form-control rounded-end"/>
+@if (!inputModel || inputModel.requiresEditing) {
+  <span class="input-group-text border-0 search-icon bg-transparent"
+    >
+    <span class="bi {{newValueTemplate ? 'bi-plus-circle' : 'bi-search'}}"></span>
+  </span>
+}
+@if (searching && inputModel) {
+  <span class="input-group-text border-0 search-icon bg-transparent">
+    <span class="spinner-border spinner-border-sm text-secondary" role="status"></span>
+  </span>
+}
 <ng-content select=".invalid-feedback"></ng-content>
 <ng-content select=".valid-feedback"></ng-content>
 
-<ng-container *ngIf="newValueTemplate && inputModel?.requiresEditing === true">
+@if (newValueTemplate && inputModel?.requiresEditing === true) {
   <div #newValueModal class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" [ngClass]="newValueModalClass" role="document">
       <div class="modal-content" >
@@ -35,7 +39,7 @@
             <div class="row justify-content-between">
               <div class="col-auto">
                 <button class="btn btn-secondary me-auto" type="button"
-                        style="min-width: 8rem" (click)="onCancelEditing()">Cancel</button>
+                style="min-width: 8rem" (click)="onCancelEditing()">Cancel</button>
               </div>
               <div class="col-auto">
                 <button class="btn btn-info ms-auto" type="submit" style="min-width: 8rem">Save</button>
@@ -46,4 +50,4 @@
       </div>
     </div>
   </div>
-</ng-container>
+}

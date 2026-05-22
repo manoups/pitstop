@@ -1,13 +1,15 @@
-<div *ngIf="context.userProfile" class="vh-100 vw-100 d-flex flex-column">
-  <div class="position-fixed sticky-top" style="left: 0; right: 0; z-index: 15000;">
-    <app-alerting></app-alerting>
-  </div>
-  <div class="sticky-top navbar navbar-horizontal navbar-light">
-    <app-top-menu-bar class="w-100"></app-top-menu-bar>
-  </div>
-  <div class="d-flex flex-grow-1 h-0">
-    <div class="main-content flex-grow-1 px-4 pt-4 position-relative">
-      <router-outlet></router-outlet>
+@if (context.userProfile) {
+  <div class="vh-100 vw-100 d-flex flex-column">
+    <div class="position-fixed sticky-top" style="left: 0; right: 0; z-index: 15000;">
+      <app-alerting></app-alerting>
+    </div>
+    <div class="sticky-top navbar navbar-horizontal navbar-light">
+      <app-top-menu-bar class="w-100"></app-top-menu-bar>
+    </div>
+    <div class="d-flex flex-grow-1 h-0">
+      <div class="main-content flex-grow-1 px-4 pt-4 position-relative">
+        <router-outlet></router-outlet>
+      </div>
     </div>
   </div>
-</div>
+}

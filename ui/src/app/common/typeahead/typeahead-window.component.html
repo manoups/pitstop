@@ -3,12 +3,12 @@
   <ng-template #rt let-result="result" let-term="term" let-formatter="formatter">
     <app-highlight [result]="formatter(result)" [term]="term"></app-highlight>
   </ng-template>
-  <ng-template ngFor [ngForOf]="values" let-value let-idx="index">
+  @for (value of values; track value; let idx = $index) {
     <li [id]="'typeahead-record-'+idx" role="option" class="dropdown-item" style="cursor: pointer" (click)="onSelect(idx)"
-        [attr.value]="idx" [attr.is-active]="activeIndex === idx">
+      [attr.value]="idx" [attr.is-active]="activeIndex === idx">
       <ng-template [ngTemplateOutlet]="data.resultTemplate || rt"
-                   [ngTemplateOutletContext]="{ result: value, term: data.term, formatter: data.resultFormatter }">
+        [ngTemplateOutletContext]="{ result: value, term: data.term, formatter: data.resultFormatter }">
       </ng-template>
     </li>
-  </ng-template>
+  }
 </div>

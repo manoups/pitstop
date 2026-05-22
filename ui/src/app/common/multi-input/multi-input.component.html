@@ -1,19 +1,19 @@
 <div [id]="id">
-  <ng-container *ngFor="let item of items; let index = index; let last = last">
+  @for (item of items; track item; let index = $index; let last = $last) {
     <input class="mb-2 form-control" [ngModel]="item" [placeholder]="placeholder" [required]="required" type="search"
-           [ngModelOptions]="{'updateOn' : 'blur'}" [disabled]="disabled"
-           (ngModelChange)="$event ? items[index] = $event : items.splice(index, 1); this.onModelChange()">
-    <ng-container *ngIf="last">
+      [ngModelOptions]="{'updateOn' : 'blur'}" [disabled]="disabled"
+      (ngModelChange)="$event ? items[index] = $event : items.splice(index, 1); this.onModelChange()">
+    @if (last) {
       <input class="mb-2 form-control" [ngModel]="null" placeholder="Add other"
-             [disabled]="disabled" [ngModelOptions]="{'updateOn' : 'blur'}"
-             (ngModelChange)="($event ? items.push($event) : null); this.onModelChange()">
-    </ng-container>
-  </ng-container>
+        [disabled]="disabled" [ngModelOptions]="{'updateOn' : 'blur'}"
+        (ngModelChange)="($event ? items.push($event) : null); this.onModelChange()">
+    }
+  }
 
-  <ng-container *ngIf="items.length === 0">
+  @if (items.length === 0) {
     <input class="form-control" [ngModel]="null" [placeholder]="items.length === 0 ? placeholder : 'Add other'"
-           [disabled]="disabled" [required]="required" [ngModelOptions]="{'updateOn' : 'blur'}"
-           (ngModelChange)="($event ? items.push($event) : null); this.onModelChange()">
-  </ng-container>
+      [disabled]="disabled" [required]="required" [ngModelOptions]="{'updateOn' : 'blur'}"
+      (ngModelChange)="($event ? items.push($event) : null); this.onModelChange()">
+  }
 </div>
 

@@ -1,26 +1,33 @@
-<div class="fieldset" [ngClass]="{'disabled' :disabled}" *ngIf="!readonly; else ro;">
-  <div class="row g-1 g-md-4 datetime">
-    <div #picker class="col input-group dropdown">
-      <input [(ngModel)]="formattedDate" (ngModelChange)="onDateChange()" [ngModelOptions]="{updateOn: 'blur'}"
-             [required]="required" (focus)="this.focus.emit($event)" (blur)="this.blur.emit($event)" [disabled]="disabled"
-             [ngClass]="status === 'warning' ? 'warning' : status === 'error' ? 'error' : null"
-             [id]="id ? id + '-date' : null" autocomplete="off" class="form-control validatable notranslate"
-             [placeholder]="translatedPlaceholder()">
-      <button class="btn btn-outline-secondary bi bi-calendar3 rounded-end"
-              data-bs-toggle="dropdown" (focus)="this.focus.emit($event)" type="button" tabIndex="-1"></button>
-      <div class="dropdown-menu dropdown-menu-end position-fixed p-0" onclick="event.stopPropagation()">
-        <app-date-picker *ngIf="showPicker" [date]="_calendarStartDate" [minDate]="_minDate"
-                         (dateChanged)="onDatePickerChanged($event)"></app-date-picker>
+@if (!readonly) {
+  <div class="fieldset" [ngClass]="{'disabled' :disabled}">
+    <div class="row g-1 g-md-4 datetime">
+      <div #picker class="col input-group dropdown">
+        <input [(ngModel)]="formattedDate" (ngModelChange)="onDateChange()" [ngModelOptions]="{updateOn: 'blur'}"
+          [required]="required" (focus)="this.focus.emit($event)" (blur)="this.blur.emit($event)" [disabled]="disabled"
+          [ngClass]="status === 'warning' ? 'warning' : status === 'error' ? 'error' : null"
+          [id]="id ? id + '-date' : null" autocomplete="off" class="form-control validatable notranslate"
+          [placeholder]="translatedPlaceholder()">
+        <button class="btn btn-outline-secondary bi bi-calendar3 rounded-end"
+        data-bs-toggle="dropdown" (focus)="this.focus.emit($event)" type="button" tabIndex="-1"></button>
+        <div class="dropdown-menu dropdown-menu-end position-fixed p-0" onclick="event.stopPropagation()">
+          @if (showPicker) {
+            <app-date-picker [date]="_calendarStartDate" [minDate]="_minDate"
+            (dateChanged)="onDatePickerChanged($event)"></app-date-picker>
+          }
+        </div>
       </div>
-    </div>
-    <div class="col-4 time notranslate" *ngIf="!dateOnly && !hideTime">
-      <app-search [(ngModel)]="time" [searchFunction]="searchTime" placeholder="hh:mm"
-                  (ngModelChange)="onTimeChange($event)" [id]="id ? id + '-time' : null"
-                  [required]="required" (focus)="this.focus.emit($event)" [disabled]="disabled"
-                  [ngClass]="status === 'warning' ? 'warning' : status === 'error' ? 'error' : null"></app-search>
+      @if (!dateOnly && !hideTime) {
+        <div class="col-4 time notranslate">
+          <app-search [(ngModel)]="time" [searchFunction]="searchTime" placeholder="hh:mm"
+            (ngModelChange)="onTimeChange($event)" [id]="id ? id + '-time' : null"
+            [required]="required" (focus)="this.focus.emit($event)" [disabled]="disabled"
+          [ngClass]="status === 'warning' ? 'warning' : status === 'error' ? 'error' : null"></app-search>
+        </div>
+      }
     </div>
   </div>
-</div>
-<ng-template #ro>
-  <span class="me-2 bi bi-clock"></span> <span>{{timestamp | timestamp:'DD MMM [’]YY'}}</span> <span class="ms-1" *ngIf="!dateOnly">{{timestamp | timestamp:'HH:mm'}}</span>
-</ng-template>
+} @else {
+  <span class="me-2 bi bi-clock"></span> <span>{{timestamp | timestamp:'DD MMM [’]YY'}}</span> @if (!dateOnly) {
+  <span class="ms-1">{{timestamp | timestamp:'HH:mm'}}</span>
+}
+}

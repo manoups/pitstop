@@ -3,4 +3,6 @@
     <ng-template #container></ng-template>
   </div>
 </div>
-<div class="modal-backdrop fade show" *ngIf="options?.backdrop"></div>
+@if (options?.backdrop) {
+  <div class="modal-backdrop fade show"></div>
+}

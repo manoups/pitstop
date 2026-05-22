@@ -1,8 +1,10 @@
 <div #popover class="popover" role="tooltip" [ngClass]="cssClass">
   <div class="popover-arrow" data-popper-arrow></div>
-  <h3 class="popover-header" *ngIf="title">
-    {{title}}
-  </h3>
+  @if (title) {
+    <h3 class="popover-header">
+      {{title}}
+    </h3>
+  }
   <div class="popover-body">
     <ng-template #container></ng-template>
   </div>

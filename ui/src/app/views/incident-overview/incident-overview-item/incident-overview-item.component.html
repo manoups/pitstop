@@ -11,16 +11,16 @@
         </div>
         <div class="modal-footer justify-content-between">
           <a type="button" class="btn btn-secondary"
-             data-bs-dismiss="modal">Cancel</a>
+          data-bs-dismiss="modal">Cancel</a>
           <button type="button" class="btn btn-primary" (click)="closeIncident()"
-                  data-bs-dismiss="modal">
+            data-bs-dismiss="modal">
             Close incident
           </button>
         </div>
       </div>
 
       <button type="button" class="btn position-absolute top-0 end-0 to-show" role="button"
-              aria-expanded="false">
+        aria-expanded="false">
         <i class="bi bi-trash"></i>
       </button>
     </app-confirmation-toggle>
@@ -34,32 +34,40 @@
 
     <h5 class="text-muted text-center notranslate">
       <app-date-field readonly [ngModel]="incident.start"></app-date-field>
-      <span class="ms-2" *ngIf="incident.details.location.name as location"><i class="bi bi-geo-alt"></i> {{ location }}</span>
+      @if (incident.details.location.name; as location) {
+        <span class="ms-2"><i class="bi bi-geo-alt"></i> {{ location }}</span>
+      }
     </h5>
 
     <hr class="card-divider m-0 mb-3">
 
-    <div *ngIf="incident.offers.length === 0"
-         class="small text-muted d-flex align-items-center justify-content-center flex-column">
-      No offers yet
-    </div>
+    @if (incident.offers.length === 0) {
+      <div
+        class="small text-muted d-flex align-items-center justify-content-center flex-column">
+        No offers yet
+      </div>
+    }
 
     <div class="hover-hide list-group-flush list-group overflow-y-auto overflow-x-hidden" [style.max-height.px]="200">
-      <ng-container *ngFor="let offer of incident.offers; trackBy: trackByOfferId">
+      @for (offer of incident.offers; track trackByOfferId($index, offer)) {
         <app-offer-overview-item [incident]="incident" [offer]="offer"></app-offer-overview-item>
-      </ng-container>
-      <div *ngIf="incident.assistance as assistance">
-        <app-assistance-overview-item [assistance]="assistance"></app-assistance-overview-item>
-      </div>
-      <div class="list-group-item py-3 pointer hover-underline" (click)="addOffer()"
-           *ngIf="!incident.acceptedOffer && (AppContext.userProfile.operator || AppContext.isAdmin())">
-        <div class="row">
-          <div class="col-auto">
-            <i class="bi me-2 bi-plus-circle"></i>
-          </div>
-          <div class="col text-truncate"><small>Add new offer</small></div>
+      }
+      @if (incident.assistance; as assistance) {
+        <div>
+          <app-assistance-overview-item [assistance]="assistance"></app-assistance-overview-item>
         </div>
-      </div>
+      }
+      @if (!incident.acceptedOffer && (AppContext.userProfile.operator || AppContext.isAdmin())) {
+        <div class="list-group-item py-3 pointer hover-underline" (click)="addOffer()"
+          >
+          <div class="row">
+            <div class="col-auto">
+              <i class="bi me-2 bi-plus-circle"></i>
+            </div>
+            <div class="col text-truncate"><small>Add new offer</small></div>
+          </div>
+        </div>
+      }
     </div>
 
   </div>

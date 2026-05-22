@@ -9,12 +9,14 @@
 
     <div class="card-body">
       <div class="row">
-        <div class="col-12" *ngIf="AppContext.isAdmin()">
-          <app-form-field label="Operator">
-            <app-select [ngModel]="null" (ngModelChange)="details.operatorId = $event.operatorId" type="text" required
-                        [optionsProvider]="operators" [formatter]="operatorFormatter"></app-select>
-          </app-form-field>
-        </div>
+        @if (AppContext.isAdmin()) {
+          <div class="col-12">
+            <app-form-field label="Operator">
+              <app-select [ngModel]="null" (ngModelChange)="details.operatorId = $event.operatorId" type="text" required
+              [optionsProvider]="operators" [formatter]="operatorFormatter"></app-select>
+            </app-form-field>
+          </div>
+        }
         <div class="col-12">
           <app-form-field label="Price (€)">
             <input [(ngModel)]="details.price" class="form-control" required>
