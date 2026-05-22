@@ -1,5 +1,4 @@
 import {Component, ElementRef, Input, TemplateRef} from '@angular/core';
-import {AppContext} from "../../app-context";
 import {checkValidity} from "../utils";
 
 @Component({

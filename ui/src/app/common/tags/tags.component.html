@@ -1,25 +1,28 @@
 <form (ngSubmit)="addValue(newValue); newValue.value = ''">
   <div class="row gx-3">
-    <ng-container *ngFor="let v of values">
+    @for (v of values; track v) {
       <div class="col-auto my-2">
         <span class="w-100 d-flex badge text-bg-info font-weight-normal" style="font-size: 1rem !important;">
           <span class="text-truncate">
-            <ng-container *ngIf="itemTemplate; else noTemplate"
-                          [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{'item' : v}">
-            </ng-container>
+            @if (itemTemplate) {
+              <ng-container
+                [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{'item' : v}">
+              </ng-container>
+            } @else {
+              {{formatter(v)}}
+            }
           </span>
           <button (click)="deleteValue(v)" [disabled]="readonly" class="remove ms-2" type="button"
-                  style="color: white;"><span>×</span></button>
-        </span>
-        <ng-template #noTemplate>{{formatter(v)}}</ng-template>
+            style="color: white;"><span>×</span></button>
+          </span>
+        </div>
+      }
+      <div class="col my-2" style="min-width: 6rem">
+        <input #newValue [placeholder]="placeholder || 'Add value'" class="w-100 border-secondary text-dark"
+          style="border-width: 0 0 1px 0; line-height: 1.5rem; outline: 0" [required]="required && values.length==0"
+          [readonly]="readonly"
+          (input)="onInput.emit(newValue.value)"
+          (blur)="addValue($event.target); clearValue()">
       </div>
-    </ng-container>
-    <div class="col my-2" style="min-width: 6rem">
-      <input #newValue [placeholder]="placeholder || 'Add value'" class="w-100 border-secondary text-dark"
-             style="border-width: 0 0 1px 0; line-height: 1.5rem; outline: 0" [required]="required && values.length==0"
-             [readonly]="readonly"
-             (input)="onInput.emit(newValue.value)"
-             (blur)="addValue($event.target); clearValue()">
     </div>
-  </div>
-</form>
+  </form>

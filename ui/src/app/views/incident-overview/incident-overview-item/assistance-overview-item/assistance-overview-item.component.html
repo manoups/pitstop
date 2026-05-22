@@ -6,22 +6,23 @@
     {{assistance.assistantName || ''}}
   </div>
   <div class="col small">
-    <ng-container *ngIf="!assistance.ata && assistance.eta as eta">
+    @if (!assistance.ata && assistance.eta; as eta) {
       <span class="badge bg-light text-dark">ETA</span>
       {{eta | timestamp:'HH:mm'}}
-    </ng-container>
-    <ng-container *ngIf="assistance.ata as ata">
+    }
+    @if (assistance.ata; as ata) {
       <span class="badge bg-success text-dark">ATA</span>
       {{ata | timestamp:'HH:mm'}}
-    </ng-container>
+    }
   </div>
-  <div class="col-auto" *ngIf="assistance.resolved; else unresolved">
-    <i class="bi bi-check-circle-fill text-success"></i>
-  </div>
-  <ng-template #unresolved>
+  @if (assistance.resolved) {
+    <div class="col-auto">
+      <i class="bi bi-check-circle-fill text-success"></i>
+    </div>
+  } @else {
     <div class="col-auto">
       <div class="spinner-border mx-auto text-light align-self-center" role="status"
-           style="width: 1rem; height: 1rem"></div>
+      style="width: 1rem; height: 1rem"></div>
     </div>
-  </ng-template>
+  }
 </div>

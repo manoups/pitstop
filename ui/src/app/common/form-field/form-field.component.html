@@ -1,42 +1,53 @@
 <div class="form-group row" [class]="customClass" [ngClass]="includeMargin ? 'mb-3' : ''">
   <div class="col-12 col-form-label">
-    <ng-container *ngIf="tooltip || tooltipTemplateRef; else labelText">
+    @if (tooltip || tooltipTemplateRef) {
       <span class="form-field-label">
-          <ng-container *ngTemplateOutlet="labelText"></ng-container>
-        </span>
+        <ng-container *ngTemplateOutlet="labelText"></ng-container>
+      </span>
       <app-tooltip [placement]="'top'">
         <i class="bi bi-info-circle info-icon"></i>
         <div class="tooltipContent">
           <div class="tooltip-card">
             <div class="tooltip-card-body">
-              <ng-container *ngIf="tooltip else tooltipAsRef">
+              @if (tooltip) {
                 {{tooltip}}
-              </ng-container>
-              <ng-template #tooltipAsRef>
+              } @else {
                 <ng-container *ngTemplateOutlet="tooltipTemplateRef"></ng-container>
-              </ng-template>
+              }
             </div>
           </div>
         </div>
       </app-tooltip>
-    </ng-container>
+    } @else {
+      @if (label) {
+        <label class="fw-regular">{{label}}</label>
+      } @else {
+        <ng-content select="label"></ng-content>
+        <ng-content select=".formGroupLabel"></ng-content>
+      }
+      @if (!required && renderOptional && editMode) {
+        <span class="form-field-optional text-secondary ">(optional)</span>
+      }
+    }
   </div>
   <div class="col-12">
-    <ng-container *ngIf="editMode else displayMode">
+    @if (editMode) {
       <ng-content></ng-content>
-    </ng-container>
-    <ng-template #displayMode>
+    } @else {
       <span class="col-12" [ngClass]="(hasValue ? '' : ' text-muted ') + (truncateReadOnly ? ' d-inline-block text-truncate ' : '')">{{readOnlyValue}}</span>
-    </ng-template>
+    }
   </div>
 </div>
 
 <ng-template #labelText>
-  <ng-container *ngIf="label; else fromTemplate"><label class="fw-regular">{{label}}</label></ng-container>
-  <span *ngIf="!required && renderOptional && editMode" class="form-field-optional text-secondary ">(optional)</span>
+  @if (label) {
+    <label class="fw-regular">{{label}}</label>
+  } @else {
+    <ng-content select="label"></ng-content>
+    <ng-content select=".formGroupLabel"></ng-content>
+  }
+  @if (!required && renderOptional && editMode) {
+    <span class="form-field-optional text-secondary ">(optional)</span>
+  }
 </ng-template>
 
-<ng-template #fromTemplate>
-  <ng-content select="label"></ng-content>
-  <ng-content select=".formGroupLabel"></ng-content>
-</ng-template>

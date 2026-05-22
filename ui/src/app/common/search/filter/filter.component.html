@@ -1,9 +1,11 @@
 <ng-content select=".input-group-prepend"></ng-content>
 <input [ngModel]="filterTerm" (input)="onInput($event.target['value'])" [disabled]="disabled"
-       [placeholder]="placeholder" [attr.type]="searching ? 'text' : 'search'" autocomplete="off"
-       class="form-control rounded-end"/>
-<span class="input-group-text border-0 search-icon bg-transparent" *ngIf="!filterTerm">
-  <i class="bi bi-search"></i>
-</span>
+  [placeholder]="placeholder" [attr.type]="searching ? 'text' : 'search'" autocomplete="off"
+  class="form-control rounded-end"/>
+@if (!filterTerm) {
+  <span class="input-group-text border-0 search-icon bg-transparent">
+    <i class="bi bi-search"></i>
+  </span>
+}
 <ng-content select=".invalid-feedback"></ng-content>
 <ng-content select=".valid-feedback"></ng-content>

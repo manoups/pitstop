@@ -1,14 +1,17 @@
 <div class="row">
-    <ng-container *ngFor="let v of labels">
-        <div class="col-auto p-0 m-1">
-            <div class="d-flex badge text-bg-info fw-normal" style="font-size: 1rem !important;">
-          <span class="text-truncate">
-              <ng-container *ngIf="itemTemplate; else noTemplate"
-                            [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{$implicit: v}">
-                    </ng-container>
-          </span>
-                <ng-template #noTemplate>{{formatter(v)}}</ng-template>
-            </div>
-        </div>
-    </ng-container>
+  @for (v of labels; track v) {
+    <div class="col-auto p-0 m-1">
+      <div class="d-flex badge text-bg-info fw-normal" style="font-size: 1rem !important;">
+        <span class="text-truncate">
+          @if (itemTemplate) {
+            <ng-container
+              [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{$implicit: v}">
+            </ng-container>
+          } @else {
+            {{formatter(v)}}
+          }
+        </span>
+      </div>
+    </div>
+  }
 </div>

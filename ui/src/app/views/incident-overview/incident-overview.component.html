@@ -4,9 +4,9 @@
       <span class="h1 m-0"><i class="bi bi-car-front-fill"></i></span>
     </div>
     <div class="col">
-        <span class="text-black">
-          <h1 class="header-title text-truncate">Incidents</h1>
-        </span>
+      <span class="text-black">
+        <h1 class="header-title text-truncate">Incidents</h1>
+      </span>
     </div>
   </div>
 </div>
@@ -25,11 +25,13 @@
   </div>
   <div class="overview-items">
     <div class="row mx-0">
-      <ng-container *ngFor="let record of data; trackBy: trackByForRecord">
-        <div class="col-12 col-md-4" *ngIf="!record.end">
-          <app-incident-overview-item class="h-100 d-flex" [incident]="record"></app-incident-overview-item>
-        </div>
-      </ng-container>
+      @for (record of data; track trackByForRecord($index, record)) {
+        @if (!record.end) {
+          <div class="col-12 col-md-4">
+            <app-incident-overview-item class="h-100 d-flex" [incident]="record"></app-incident-overview-item>
+          </div>
+        }
+      }
     </div>
   </div>
   <div class="empty-container col-12 h-100 d-flex align-items-center justify-content-center flex-column">

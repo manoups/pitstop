@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {View} from "src/app/common/view";
 import {Handler} from "src/app/common/handler";
 import {IncidentId, OfferDetails, Operator} from '@pitstop/typescriptmodels/pitstop';
@@ -13,10 +13,10 @@ import {Observable} from 'rxjs';
 })
 @Handler()
 export class OfferModalComponent extends View {
-  protected readonly AppContext = AppContext;
+  protected readonly appContext = inject(AppContext);
 
   incidentId: IncidentId;
-  details: OfferDetails = {operatorId: AppContext.userProfile.operator}
+  details: OfferDetails = {operatorId: this.appContext.userProfile().operator}
 
   operators : Observable<Operator[]> = this.subscribeTo("/api/operators");
   operatorFormatter = (operator : Operator) => operator.details.name;

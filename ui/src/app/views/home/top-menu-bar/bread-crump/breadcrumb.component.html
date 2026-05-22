@@ -1,7 +1,7 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <ng-container *ngFor="let breadcrumb of breadcrumbs | async">
+    @for (breadcrumb of breadcrumbs | async; track breadcrumb) {
       <li class="breadcrumb-item d-flex"><a [routerLink]="breadcrumb.url">{{breadcrumb.label | async}}</a></li>
-    </ng-container>
+    }
   </ol>
 </nav>

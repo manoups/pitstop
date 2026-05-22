@@ -2,42 +2,50 @@
   <div class="row datetime">
     <div #picker class="col input-group dropdown" [ngClass]="{'dropdown-backdrop': showBackdrop}">
       <ng-content select=".input-group-prepend"></ng-content>
-      <ng-container [ngSwitch]="inputMode">
-        <div *ngSwitchCase="'button'" class="btn btn-outline-primary" data-bs-toggle="dropdown"
-             [ngClass]="!show ? 'invisible p-0' : ''"
-             (click)="openCalendar(); $event.stopPropagation();">
-          <ng-content></ng-content>
-        </div>
-        <ng-container *ngSwitchCase="'input'">
+      @switch (inputMode) {
+        @case ('button') {
+          <div class="btn btn-outline-primary" data-bs-toggle="dropdown"
+            [ngClass]="!show ? 'invisible p-0' : ''"
+            (click)="openCalendar(); $event.stopPropagation();">
+            <ng-content></ng-content>
+          </div>
+        }
+        @case ('input') {
           <input [(ngModel)]="formattedDate" (ngModelChange)="onDateChange()" [ngModelOptions]="{updateOn: 'blur'}"
-                 [required]="required" (focus)="this.focus.emit($event)" (blur)="this.blur.emit($event)" [disabled]="disabled"
-                 [ngClass]="status === 'warning' ? 'warning' : status === 'error' ? 'error' : null"
-                 [id]="id ? id + '-date' : null" autocomplete="off" class="form-control validatable"
-                 [placeholder]="'mmm dd, yyyy' + separator + 'mmm dd, yyyy'">
+            [required]="required" (focus)="this.focus.emit($event)" (blur)="this.blur.emit($event)" [disabled]="disabled"
+            [ngClass]="status === 'warning' ? 'warning' : status === 'error' ? 'error' : null"
+            [id]="id ? id + '-date' : null" autocomplete="off" class="form-control validatable"
+            [placeholder]="'mmm dd, yyyy' + separator + 'mmm dd, yyyy'">
           <button #dropdownButton class="btn btn-outline-secondary bi bi-calendar3 rounded-end"
-                  data-bs-toggle="dropdown" (click)="openCalendar(); $event.stopPropagation();"
-                  (focus)="this.focus.emit($event)" type="button" tabIndex="-1"></button>
-        </ng-container>
-      </ng-container>
+            data-bs-toggle="dropdown" (click)="openCalendar(); $event.stopPropagation();"
+          (focus)="this.focus.emit($event)" type="button" tabIndex="-1"></button>
+        }
+      }
       <div #dropdownMenu class="dropdown-menu dropdown-menu-end p-0" onclick="event.stopPropagation()" style="z-index: 1021">
         <div class="row g-0 flex-md-nowrap">
-          <div *ngIf="ranges" class="border-end-1 col-12 col-md-auto" [style.min-width]="'200px'">
-            <ul class="list-group">
-              <ng-container *ngFor="let range of ranges">
-                <button class="list-group-item py-2 list-group-item-action rounded-0" (click)="selectRange(range)" [ngClass]="{'active': utils.rangeSelected(_date, range)}">
-                  {{range.label}}
-                </button>
-              </ng-container>
-            </ul>
-          </div>
-          <div class="col">
-            <app-date-picker *ngIf="showPicker" [date]="_calendarStartDate" [minDate]="_minDate"
-                             [range]="true" [numberOfCalendars]="numberOfMonths"
-                             (dateChanged)="onDatePickerChanged($event)"></app-date-picker>
-            <div *ngIf="includeTime" class="row w-100 mx-0 p-3">
-              <app-time-picker class="col" [ngModel]="startTime" (ngModelChange)="onTimeChanged($event)"></app-time-picker>
-              <app-time-picker class="col" [ngModel]="endTime" (ngModelChange)="onTimeChanged($event)"></app-time-picker>
+          @if (ranges) {
+            <div class="border-end-1 col-12 col-md-auto" [style.min-width]="'200px'">
+              <ul class="list-group">
+                @for (range of ranges; track range) {
+                  <button class="list-group-item py-2 list-group-item-action rounded-0" (click)="selectRange(range)" [ngClass]="{'active': utils.rangeSelected(_date, range)}">
+                    {{range.label}}
+                  </button>
+                }
+              </ul>
             </div>
+          }
+          <div class="col">
+            @if (showPicker) {
+              <app-date-picker [date]="_calendarStartDate" [minDate]="_minDate"
+                [range]="true" [numberOfCalendars]="numberOfMonths"
+              (dateChanged)="onDatePickerChanged($event)"></app-date-picker>
+            }
+            @if (includeTime) {
+              <div class="row w-100 mx-0 p-3">
+                <app-time-picker class="col" [ngModel]="startTime" (ngModelChange)="onTimeChanged($event)"></app-time-picker>
+                <app-time-picker class="col" [ngModel]="endTime" (ngModelChange)="onTimeChanged($event)"></app-time-picker>
+              </div>
+            }
           </div>
         </div>
       </div>

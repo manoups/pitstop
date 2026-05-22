@@ -16,7 +16,7 @@ import {KeycloakService} from "keycloak-angular";
 })
 @Handler()
 export class HomeComponent extends View implements OnInit {
-  context = AppContext;
+  context = inject(AppContext);
   socketService: WebsocketService<any> = inject(WebsocketService<any>);
   authService: KeycloakService = inject(KeycloakService);
 
@@ -32,6 +32,6 @@ export class HomeComponent extends View implements OnInit {
       },
       error: () => this.authService.logout()
     });
-    subscription.subscribe(userProfile => AppContext.setUserProfile(userProfile));
+    subscription.subscribe(userProfile => this.context.setUserProfile(userProfile));
   }
 }

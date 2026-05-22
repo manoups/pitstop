@@ -2,7 +2,6 @@ import {NgModule} from "@angular/core";
 import {BrowserModule} from "@angular/platform-browser";
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
-import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 import {TypeaheadWindowComponent} from "./typeahead/typeahead-window.component";
 import {PopoverComponent} from "./popover/popover.component";
 import {TooltipComponent} from "./tooltip/tooltip.component";
@@ -114,8 +113,7 @@ export const commonDeclarations = [
         HighlightComponent], providers: [
         SentenceCasePipe,
         { provide: RouteReuseStrategy, useClass: RouteStrategyService },
-        WebsocketService,
-        provideHttpClient(withInterceptorsFromDi())
+        WebsocketService
     ] })
 export class CommonsModule {
 

@@ -1,39 +1,44 @@
-<div class="row hover-show" *ngIf="!incident.acceptedOffer || offer.accepted">
-  <div class="col-auto ">
-    <i class="bi bi-person-raised-hand"></i>
-  </div>
-  <div class="col-6 small">
-    <div>{{(operator | async)?.details?.name}}</div>
-  </div>
-  <div class="col small">
-    <i class="bi bi-currency-euro"></i> {{ offer.details.price }}
-  </div>
-  <div class="col-auto" *ngIf="offer.accepted">
-    <i class="bi bi-check-circle text-success"></i>
-  </div>
-  <div class="col-auto" *ngIf="!offer.accepted && (AppContext.isAdmin() || !AppContext.userProfile.operator)">
-    <app-confirmation-toggle>
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3 class="modal-title">Accept offer</h3>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"
-                  aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p>Are you sure you want to accept this offer?</p>
-        </div>
-        <div class="modal-footer justify-content-between">
-          <a type="button" class="btn btn-secondary"
-             data-bs-dismiss="modal">Cancel</a>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="acceptOffer()">
-            Accept offer
-          </button>
-        </div>
+@if (!incident.acceptedOffer || offer.accepted) {
+  <div class="row hover-show">
+    <div class="col-auto ">
+      <i class="bi bi-person-raised-hand"></i>
+    </div>
+    <div class="col-6 small">
+      <div>{{(operator | async)?.details?.name}}</div>
+    </div>
+    <div class="col small">
+      <i class="bi bi-currency-euro"></i> {{ offer.details.price }}
+    </div>
+    @if (offer.accepted) {
+      <div class="col-auto">
+        <i class="bi bi-check-circle text-success"></i>
       </div>
-
-      <button type="button" class="btn p-0 to-show" role="button" aria-expanded="false">
-        <i class="bi bi-check-circle"></i>
-      </button>
-    </app-confirmation-toggle>
+    }
+    @if (!offer.accepted && (AppContext.isAdmin() || !AppContext.userProfile().operator)) {
+      <div class="col-auto">
+        <app-confirmation-toggle>
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title">Accept offer</h3>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"
+              aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>Are you sure you want to accept this offer?</p>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <a type="button" class="btn btn-secondary"
+              data-bs-dismiss="modal">Cancel</a>
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="acceptOffer()">
+                Accept offer
+              </button>
+            </div>
+          </div>
+          <button type="button" class="btn p-0 to-show" role="button" aria-expanded="false">
+            <i class="bi bi-check-circle"></i>
+          </button>
+        </app-confirmation-toggle>
+      </div>
+    }
   </div>
-</div>
+}

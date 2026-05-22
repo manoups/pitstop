@@ -1,33 +1,35 @@
 <ng-content></ng-content>
 
 <!-- paging -->
-<div *ngIf="items.length > maxPerPage" class="my-2 w-100 always-enabled">
-  <div class="pagination-wrapper d-flex justify-content-center">
-    <ul class="pagination pagination-sm mb-2 notranslate">
-      <li class="page-item" (click)="moveToPage(1)" [ngClass]="{'disabled': isFirstPage()}">
-        <a class="page-link" aria-label="First">
-          <span aria-hidden="true">&laquo;&laquo;</span>
-        </a>
-      </li>
-      <li class="page-item" (click)="moveToPage(page - 1)" [ngClass]="{'disabled': isFirstPage()}">
-        <a class="page-link" aria-label="Previous">&laquo;</a>
-      </li>
-      <ng-container *ngFor="let pageNumber of pagesArray()">
-        <li class="page-item" (click)="moveToPage(pageNumber)" [ngClass]="{'active': isCurrentPage(pageNumber)}">
-          <a class="page-link">{{pageNumber}}</a>
+@if (items.length > maxPerPage) {
+  <div class="my-2 w-100 always-enabled">
+    <div class="pagination-wrapper d-flex justify-content-center">
+      <ul class="pagination pagination-sm mb-2 notranslate">
+        <li class="page-item" (click)="moveToPage(1)" [ngClass]="{'disabled': isFirstPage()}">
+          <a class="page-link" aria-label="First">
+            <span aria-hidden="true">&laquo;&laquo;</span>
+          </a>
         </li>
-      </ng-container>
-      <li class="page-item" (click)="moveToPage(page + 1)" [ngClass]="{'disabled': isLastPage()}">
-        <a class="page-link" aria-label="Next">
-          <span aria-hidden="true">&raquo;</span>
-        </a>
-      </li>
-      <li class="page-item" (click)="moveToPage(totalPages())" [ngClass]="{'disabled': isLastPage()}">
-        <a class="page-link" aria-label="Last">
-          <span aria-hidden="true">&raquo;&raquo;</span>
-        </a>
-      </li>
-    </ul>
+        <li class="page-item" (click)="moveToPage(page - 1)" [ngClass]="{'disabled': isFirstPage()}">
+          <a class="page-link" aria-label="Previous">&laquo;</a>
+        </li>
+        @for (pageNumber of pagesArray(); track pageNumber) {
+          <li class="page-item" (click)="moveToPage(pageNumber)" [ngClass]="{'active': isCurrentPage(pageNumber)}">
+            <a class="page-link">{{pageNumber}}</a>
+          </li>
+        }
+        <li class="page-item" (click)="moveToPage(page + 1)" [ngClass]="{'disabled': isLastPage()}">
+          <a class="page-link" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+        <li class="page-item" (click)="moveToPage(totalPages())" [ngClass]="{'disabled': isLastPage()}">
+          <a class="page-link" aria-label="Last">
+            <span aria-hidden="true">&raquo;&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
-</div>
+}
 
