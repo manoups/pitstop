@@ -57,7 +57,7 @@
           <app-assistance-overview-item [assistance]="assistance"></app-assistance-overview-item>
         </div>
       }
-      @if (!incident.acceptedOffer && (AppContext.userProfile.operator || AppContext.isAdmin())) {
+      @if (!incident.acceptedOffer && (AppContext.userProfile().operator || AppContext.isAdmin())) {
         <div class="list-group-item py-3 pointer hover-underline" (click)="addOffer()"
           >
           <div class="row">

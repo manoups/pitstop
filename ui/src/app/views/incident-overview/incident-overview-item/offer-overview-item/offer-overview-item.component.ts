@@ -1,9 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, inject, Input} from '@angular/core';
 import {View} from "src/app/common/view";
 import {Handler} from "src/app/common/handler";
 import {AppContext} from '../../../../app-context';
 import {Incident, Offer, Operator} from '@pitstop/typescriptmodels/pitstop';
-import {HandleQuery} from '../../../../common/handle-query';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
@@ -16,7 +15,7 @@ import {map} from 'rxjs/operators';
 @Handler()
 export class OfferOverviewItemComponent extends View {
 
-  protected readonly AppContext = AppContext;
+  protected readonly AppContext = inject(AppContext);
 
   @Input() incident: Incident;
   @Input() offer: Offer;

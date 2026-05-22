@@ -1,21 +1,31 @@
 import {AppCommonUtils} from "./common/app-common-utils";
 import {environment} from '../environments/environment';
 import {Role, UserProfile} from '@pitstop/typescriptmodels/pitstop';
+import {BehaviorSubject} from "rxjs";
+import {Injectable} from "@angular/core";
+import {toSignal} from "@angular/core/rxjs-interop";
 
+@Injectable({providedIn: 'root'})
 export class AppContext {
-  static userProfile: UserProfile;
-  static initials: string;
+  private userProfile$$ = new BehaviorSubject<UserProfile | undefined>(undefined);
 
-  static setUserProfile = (userProfile: UserProfile) => {
+  userProfile = toSignal(this.userProfile$$);
+
+  initials = '';
+
+  setUserProfile = (userProfile: UserProfile | undefined) => {
     if (!userProfile) {
       AppCommonUtils.clearCache();
     }
-    this.userProfile = userProfile;
-    this.initials = userProfile && (userProfile.details.firstName + ' ' + userProfile.details.lastName)
-      .match(/(\b\S)?/g).join("").match(/(^\S|\S$)?/g).join("").toUpperCase();
-  }
+    this.initials = userProfile
+      ? (userProfile.details.firstName + ' ' + userProfile.details.lastName)
+        .match(/(\b\S)?/g)!.join('').match(/(^\S|\S$)?/g)!.join('').toUpperCase()
+      : '';
+    this.userProfile$$.next(userProfile);
+  };
 
-  static isAdmin = () => Role.admin === this.userProfile.userRole;
+  isAdmin = () =>
+    this.userProfile()?.userRole === Role.admin;
 
-  static isProduction = () => environment.production;
+  isProduction = () => environment.production;
 }

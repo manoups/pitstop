@@ -9,7 +9,7 @@
 
     <div class="card-body">
       <div class="row">
-        @if (AppContext.isAdmin()) {
+        @if (appContext.isAdmin()) {
           <div class="col-12">
             <app-form-field label="Operator">
               <app-select [ngModel]="null" (ngModelChange)="details.operatorId = $event.operatorId" type="text" required

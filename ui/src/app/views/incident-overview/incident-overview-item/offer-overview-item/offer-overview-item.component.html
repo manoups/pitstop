@@ -14,7 +14,7 @@
         <i class="bi bi-check-circle text-success"></i>
       </div>
     }
-    @if (!offer.accepted && (AppContext.isAdmin() || !AppContext.userProfile.operator)) {
+    @if (!offer.accepted && (AppContext.isAdmin() || !AppContext.userProfile().operator)) {
       <div class="col-auto">
         <app-confirmation-toggle>
           <div class="modal-content">

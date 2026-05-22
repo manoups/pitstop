@@ -14,12 +14,12 @@ import {KeycloakService} from "keycloak-angular";
 })
 @Handler()
 export class TopMenuBarComponent extends View {
-  appContext = AppContext;
+  appContext = inject(AppContext);
   authService = inject(KeycloakService);
 
   signOut() {
     this.authService.logout();
-    AppContext.setUserProfile(undefined);
+    this.appContext.setUserProfile(undefined);
     AppCommonUtils.navigateToUrl("/login");
   }
 

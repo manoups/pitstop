@@ -1,7 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, inject, Input, OnInit} from '@angular/core';
 import {View} from '../../../common/view';
 import {HandleQuery} from '../../../common/handle-query';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Handler} from '../../../common/handler';
 import {Incident, Offer} from '@pitstop/typescriptmodels/pitstop';
@@ -38,6 +38,6 @@ export class IncidentOverviewItemComponent extends View implements OnInit {
 
   trackByOfferId = (index: number, record: Offer) => record.offerId;
 
-  protected readonly AppContext = AppContext;
-  protected readonly appUtils = AppCommonUtils;
+  protected readonly AppContext = inject(AppContext);
+  protected readonly appUtils = inject(AppCommonUtils);
 }
