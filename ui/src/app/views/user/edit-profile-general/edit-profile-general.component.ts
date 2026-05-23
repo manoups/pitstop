@@ -1,17 +1,18 @@
 import {Component, inject} from '@angular/core';
 import {Handler} from "../../../common/handler";
 import {View} from "../../../common/view";
-import {KeycloakService} from "keycloak-angular";
+import Keycloak from "keycloak-js";
 
 @Component({
-    selector: 'app-edit-profile-general',
-    templateUrl: './edit-profile-general.component.html',
-    styleUrls: ['./edit-profile-general.component.scss'],
-    standalone: false
+  selector: 'app-edit-profile-general',
+  templateUrl: './edit-profile-general.component.html',
+  styleUrls: ['./edit-profile-general.component.scss'],
+  standalone: false
 })
 @Handler()
 export class EditProfileGeneralComponent extends View {
-  authService: KeycloakService = inject(KeycloakService);
+  authService = inject(Keycloak);
+
   // command: UpdateUser = {userId: AppContext.userProfile.userId, details: cloneObject(AppContext.userProfile.details)};
 
   updateInfo() {

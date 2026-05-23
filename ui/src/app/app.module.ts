@@ -1,9 +1,9 @@
-import {APP_INITIALIZER, Injector, LOCALE_ID, NgModule} from '@angular/core';
+import {Injector, LOCALE_ID, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi} from "@angular/common/http";
+import {provideHttpClient, withInterceptors, withInterceptorsFromDi} from "@angular/common/http";
 import {CommonModule, DecimalPipe, TitleCasePipe} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {CommonsModule} from "./common/commons.module";
@@ -41,8 +41,34 @@ import {
 import {
   AssistanceOverviewItemComponent
 } from './views/incident-overview/incident-overview-item/assistance-overview-item/assistance-overview-item.component';
-import {initializeKeycloak} from "./init-keycloak";
-import {KeycloakBearerInterceptor, KeycloakService} from "keycloak-angular";
+import {
+  createInterceptorCondition,
+  INCLUDE_BEARER_TOKEN_INTERCEPTOR_CONFIG,
+  IncludeBearerTokenCondition,
+  includeBearerTokenInterceptor,
+  provideKeycloak
+} from "keycloak-angular";
+
+const localhostCondition = createInterceptorCondition<IncludeBearerTokenCondition>({
+  urlPattern: /^(?:https?:\/\/[^/]+)?\/api(?:\/.*)?$/i,
+  bearerPrefix: 'Bearer',
+});
+
+export const provideKeycloakAngular = () =>
+  provideKeycloak({
+    config: environment.auth,
+    initOptions: {
+      onLoad: 'check-sso',
+      silentCheckSsoRedirectUri: `${window.location.origin}/assets/silent-check-sso.html`,
+      redirectUri: window.location.origin + '/'
+    },
+    providers: [
+      {
+        provide: INCLUDE_BEARER_TOKEN_INTERCEPTOR_CONFIG,
+        useValue: [localhostCondition] // Specify conditions for adding the Bearer token
+      }
+    ]
+  });
 
 @NgModule({
   declarations: [
@@ -73,6 +99,7 @@ import {KeycloakBearerInterceptor, KeycloakService} from "keycloak-angular";
     NgxMapboxGLModule.withConfig({
       accessToken: environment.mapbox.accessToken,
     })], providers: [
+    provideKeycloakAngular(),
     HandlerRegistry,
     CommandGateway,
     QueryGateway,
@@ -81,19 +108,7 @@ import {KeycloakBearerInterceptor, KeycloakService} from "keycloak-angular";
     TimestampPipe,
     DecimalPipe,
     RouterHandler,
-    KeycloakService,
     {provide: LOCALE_ID, useValue: 'en-NL'},
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initializeKeycloak,
-      multi: true,
-      deps: [KeycloakService],
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: KeycloakBearerInterceptor,
-      multi: true,
-    },
     {
       provide: StatehandlerProcessorService,
       useClass: StatehandlerProcessorServiceImpl,
@@ -102,7 +117,7 @@ import {KeycloakBearerInterceptor, KeycloakService} from "keycloak-angular";
       provide: StatehandlerService,
       useClass: StatehandlerServiceImpl,
     },
-    provideHttpClient(withInterceptorsFromDi())
+    provideHttpClient(withInterceptorsFromDi(), withInterceptors([includeBearerTokenInterceptor]))
   ]
 })
 export class AppModule {

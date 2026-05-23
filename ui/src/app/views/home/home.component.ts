@@ -5,20 +5,20 @@ import {publishEvent, subscribeTo} from '../../common/app-common-utils';
 import {Handler} from "../../common/handler";
 import {View} from "../../common/view";
 import {take} from 'rxjs';
-import {KeycloakService} from "keycloak-angular";
+import Keycloak from "keycloak-js";
 
 @Component({
-    selector: 'app-home',
-    templateUrl: './home.component.html',
-    styleUrls: ['./home.component.scss'],
-    providers: [WebsocketService],
-    standalone: false
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
+  providers: [WebsocketService],
+  standalone: false
 })
 @Handler()
 export class HomeComponent extends View implements OnInit {
   context = inject(AppContext);
   socketService: WebsocketService<any> = inject(WebsocketService<any>);
-  authService: KeycloakService = inject(KeycloakService);
+  authService = inject(Keycloak);
 
   ngOnInit(): void {
     const subscription = subscribeTo("/api/user");
