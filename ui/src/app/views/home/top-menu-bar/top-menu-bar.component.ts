@@ -4,7 +4,7 @@ import {AppCommonUtils} from "../../../common/app-common-utils";
 import {Handler} from "src/app/common/handler";
 import {View} from '../../../common/view';
 import {RegisterOperatorComponent} from '../../user/register-operator/register-operator.component';
-import {KeycloakService} from "keycloak-angular";
+import Keycloak from "keycloak-js";
 
 @Component({
     selector: 'app-top-menu-bar',
@@ -15,12 +15,12 @@ import {KeycloakService} from "keycloak-angular";
 @Handler()
 export class TopMenuBarComponent extends View {
   appContext = inject(AppContext);
-  authService = inject(KeycloakService);
+  authService = inject(Keycloak);
 
   signOut() {
-    this.authService.logout();
-    this.appContext.setUserProfile(undefined);
-    AppCommonUtils.navigateToUrl("/login");
+    this.authService.logout().then(_ =>
+    this.appContext.setUserProfile(undefined)).then(_ =>
+    AppCommonUtils.navigateToUrl("/login"));
   }
 
   protected readonly RegisterOperatorComponent = RegisterOperatorComponent;

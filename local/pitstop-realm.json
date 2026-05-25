@@ -61,7 +61,7 @@
       "description" : "${role_default-roles}",
       "composite" : true,
       "composites" : {
-        "realm" : [ "offline_access", "uma_authorization" ],
+        "realm" : [ "offline_access", "uma_authorization", "user" ],
         "client" : {
           "account" : [ "view-profile", "manage-account" ]
         }
@@ -70,9 +70,33 @@
       "containerId" : "c91b58c9-71a6-4c63-96e0-49532aca3a61",
       "attributes" : { }
     }, {
+      "id" : "8aad2cb6-f880-4226-9fbb-ea0a8016a7ec",
+      "name" : "admin",
+      "description" : "admin",
+      "composite" : false,
+      "clientRole" : false,
+      "containerId" : "c91b58c9-71a6-4c63-96e0-49532aca3a61",
+      "attributes" : { }
+    }, {
+      "id" : "b5903152-2cbe-4b4d-a4f2-5080ba627f15",
+      "name" : "user",
+      "description" : "Default role for all signed-up users",
+      "composite" : false,
+      "clientRole" : false,
+      "containerId" : "c91b58c9-71a6-4c63-96e0-49532aca3a61",
+      "attributes" : { }
+    }, {
       "id" : "beff1e0d-667c-46d6-988d-c9115a833c05",
       "name" : "offline_access",
       "description" : "${role_offline-access}",
+      "composite" : false,
+      "clientRole" : false,
+      "containerId" : "c91b58c9-71a6-4c63-96e0-49532aca3a61",
+      "attributes" : { }
+    }, {
+      "id" : "f78dc7f0-0851-4731-86ee-b6f7e2dab2f5",
+      "name" : "operator",
+      "description" : "Upgraded role, self-assignable",
       "composite" : false,
       "clientRole" : false,
       "containerId" : "c91b58c9-71a6-4c63-96e0-49532aca3a61",
@@ -248,6 +272,7 @@
         "attributes" : { }
       } ],
       "security-admin-console" : [ ],
+      "pitstop-client" : [ ],
       "admin-cli" : [ ],
       "account-console" : [ ],
       "broker" : [ {
@@ -433,6 +458,23 @@
     "disableableCredentialTypes" : [ ],
     "requiredActions" : [ ],
     "realmRoles" : [ "default-roles-pitstop" ],
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "6b029764-e5f6-4462-98cd-f6d7f92f2783",
+    "username" : "service-account-pitstop-client",
+    "emailVerified" : false,
+    "enabled" : true,
+    "createdTimestamp" : 1779651753415,
+    "totp" : false,
+    "serviceAccountClientId" : "pitstop-client",
+    "credentials" : [ ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "default-roles-pitstop" ],
+    "clientRoles" : {
+      "realm-management" : [ "manage-users", "view-realm" ]
+    },
     "notBefore" : 0,
     "groups" : [ ]
   }, {
@@ -653,6 +695,50 @@
     "fullScopeAllowed" : false,
     "nodeReRegistrationTimeout" : 0,
     "defaultClientScopes" : [ "web-origins", "acr", "roles", "profile", "basic", "email" ],
+    "optionalClientScopes" : [ "address", "phone", "organization", "offline_access", "microprofile-jwt" ]
+  }, {
+    "id" : "fc6a7620-6ac5-46f0-819a-23d6374ceff1",
+    "clientId" : "pitstop-client",
+    "name" : "",
+    "description" : "",
+    "rootUrl" : "",
+    "adminUrl" : "",
+    "baseUrl" : "",
+    "surrogateAuthRequired" : false,
+    "enabled" : true,
+    "alwaysDisplayInConsole" : false,
+    "clientAuthenticatorType" : "client-secret",
+    "secret" : "ucC1eTDmVdEYmDZgSW0G1n4FXL20j1Wl",
+    "redirectUris" : [ "/*" ],
+    "webOrigins" : [ "/*" ],
+    "notBefore" : 0,
+    "bearerOnly" : false,
+    "consentRequired" : false,
+    "standardFlowEnabled" : false,
+    "implicitFlowEnabled" : false,
+    "directAccessGrantsEnabled" : false,
+    "serviceAccountsEnabled" : true,
+    "publicClient" : false,
+    "frontchannelLogout" : true,
+    "protocol" : "openid-connect",
+    "attributes" : {
+      "logout.confirmation.enabled" : "false",
+      "realm_client" : "false",
+      "oidc.ciba.grant.enabled" : "false",
+      "client.secret.creation.time" : "1779651753",
+      "backchannel.logout.session.required" : "true",
+      "oauth2.jwt.authorization.grant.enabled" : "false",
+      "standard.token.exchange.enabled" : "false",
+      "frontchannel.logout.session.required" : "true",
+      "display.on.consent.screen" : "false",
+      "oauth2.device.authorization.grant.enabled" : "false",
+      "backchannel.logout.revoke.offline.tokens" : "false",
+      "dpop.bound.access.tokens" : "false"
+    },
+    "authenticationFlowBindingOverrides" : { },
+    "fullScopeAllowed" : true,
+    "nodeReRegistrationTimeout" : -1,
+    "defaultClientScopes" : [ "web-origins", "service_account", "acr", "roles", "profile", "basic", "email" ],
     "optionalClientScopes" : [ "address", "phone", "organization", "offline_access", "microprofile-jwt" ]
   }, {
     "id" : "a81cf2c1-8ccc-4aea-aee1-5dfc4eb631d1",
@@ -1401,7 +1487,7 @@
       "subType" : "anonymous",
       "subComponents" : { },
       "config" : {
-        "allowed-protocol-mapper-types" : [ "saml-user-attribute-mapper", "saml-user-property-mapper", "oidc-usermodel-attribute-mapper", "saml-role-list-mapper", "oidc-usermodel-property-mapper", "oidc-address-mapper", "oidc-full-name-mapper", "oidc-sha256-pairwise-sub-mapper" ]
+        "allowed-protocol-mapper-types" : [ "oidc-usermodel-attribute-mapper", "oidc-usermodel-property-mapper", "oidc-address-mapper", "saml-user-attribute-mapper", "saml-role-list-mapper", "oidc-full-name-mapper", "saml-user-property-mapper", "oidc-sha256-pairwise-sub-mapper" ]
       }
     }, {
       "id" : "33a6fb8a-7ff5-4732-9c7d-5a2ab6bab322",
@@ -1426,7 +1512,7 @@
       "subType" : "authenticated",
       "subComponents" : { },
       "config" : {
-        "allowed-protocol-mapper-types" : [ "oidc-full-name-mapper", "saml-user-attribute-mapper", "saml-user-property-mapper", "oidc-usermodel-attribute-mapper", "oidc-address-mapper", "oidc-sha256-pairwise-sub-mapper", "oidc-usermodel-property-mapper", "saml-role-list-mapper" ]
+        "allowed-protocol-mapper-types" : [ "oidc-full-name-mapper", "oidc-address-mapper", "oidc-usermodel-property-mapper", "saml-user-attribute-mapper", "saml-role-list-mapper", "oidc-usermodel-attribute-mapper", "oidc-sha256-pairwise-sub-mapper", "saml-user-property-mapper" ]
       }
     }, {
       "id" : "a0bcbced-f66f-4647-8fd2-239a20852e0b",
