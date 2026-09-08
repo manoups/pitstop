@@ -6,13 +6,13 @@
     "changeOrigin": true,
     "ws": true
   },
-  "/api/*": {
+  "/api/**": {
     "target": "http://localhost:8080",
     "secure": false,
     "logLevel": "info",
     "changeOrigin": true
   },
-  "/search/geocode/*": {
+  "/search/geocode/**": {
     "target": "https://api.mapbox.com",
     "secure": true,
     "logLevel": "info",

@@ -6,7 +6,7 @@ import {IncidentOverviewComponent} from './views/incident-overview/incident-over
 import {canActivateAuthRole} from "./authentication/auth.guard";
 import {userProfileResolver} from "./user-profile-resolver";
 
-const routes: FluxHostRoute[] = [
+export const routes: FluxHostRoute[] = [
   {
     title: "PitStop",
     path: '',

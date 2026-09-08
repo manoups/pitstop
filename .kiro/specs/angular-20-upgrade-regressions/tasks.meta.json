@@ -1,0 +1,42 @@
+{
+  "pbtResults": {
+    "1. Write bug condition exploration tests (BEFORE any fix)": {
+      "status": "passed",
+      "failingExample": "Exploration tests fail on unfixed code as expected (this is the SUCCESS case), surfacing these counterexamples:\n\nBug 1 (WebsocketService, ui/src/app/common/websocket.service.spec.ts):\n- \"constructs a WebSocket when a Keycloak session is present\" -> FAILED: \"Expected spy WebSocket to have been called.\" No socket opened while authenticated (false localStorage 'Authorization' guard).\n- \"carries an Authorization Bearer subprotocol\" -> FAILED: WebSocket never constructed.\n- \"delivers an incoming Incident UiUpdate\" -> FAILED: socket never opened, onmessage null, /api/incidents cache never patched.\n\nBug 2 (UI, ui/src/app/views/incident-overview/incident-overview-item/close-incident.spec.ts):\n- \"issues POST /api/incidents/{id}/close and succeeds\" -> FAILED: \"Expected 404 to be undefined.\" Request correctly targets POST /api/incidents/incident-1/close but returns 404.\n\nBug 2 direct-backend probe (src/test/java/com/example/app/pitstop/CloseIncidentRouteExplorationTest.java):\n- closeIncidentViaApi_reachesHandler_noError -> PASSED (2xx, reached PitStopApi.closeIncident)\n- closeIncidentViaApi_withAuthorization_reachesHandler_noError -> PASSED (2xx)\n=> Backend-route hypothesis REFUTED. The close POST resolves to the backend handler fine; the 404 is UI-side (task 4 must re-hypothesize UI-side before implementing).\n\nBug 3 (ui/src/app/app-routing.spec.ts):\n- \"navigates to incident/:incidentId\" -> FAILED: \"Expected '/' to be '/incident/abc-123'.\" incident/{id} falls through the ** wildcard redirect to ''.\n- \"preserves resolution of the root route\" -> PASSED (regression guard).",
+      "lastRunTimestamp": 1788896496385
+    }
+  },
+  "executionHistory": {
+    "1. Write bug condition exploration tests (BEFORE any fix)": [
+      {
+        "executionId": "d18ee813-ce6d-4e43-b84c-a28c150785ec",
+        "chatSessionId": "sess_2f3ff15f-b0f7-4c7e-9eb8-e0f193c6c38b",
+        "timestamp": 1788896015272
+      },
+      {
+        "executionId": "d18ee813-ce6d-4e43-b84c-a28c150785ec",
+        "chatSessionId": "sess_2f3ff15f-b0f7-4c7e-9eb8-e0f193c6c38b",
+        "timestamp": 1788896548230
+      }
+    ],
+    "3. Fix Bug 1 - Websocket authenticates via the Keycloak token": [
+      {
+        "executionId": "73592ab8-f863-4d4c-b64d-3358777f15ed",
+        "chatSessionId": "sess_4c5840b0-f066-4196-9b2d-834afb53376c",
+        "timestamp": 1788896564481
+      },
+      {
+        "executionId": "73592ab8-f863-4d4c-b64d-3358777f15ed",
+        "chatSessionId": "sess_4c5840b0-f066-4196-9b2d-834afb53376c",
+        "timestamp": 1788896938021
+      }
+    ],
+    "4. Fix Bug 2 - Close incident reaches the existing endpoint": [
+      {
+        "executionId": "194b01e8-b4eb-4077-8843-5d8c5852723b",
+        "chatSessionId": "sess_5b1a39a7-5bec-40e0-aae8-4937d20abfd4",
+        "timestamp": 1788898235703
+      }
+    ]
+  }
+}

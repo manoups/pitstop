@@ -1,0 +1,10 @@
+{
+  "@class": "CreateUser",
+  "userId": "user2",
+  "details": {
+    "firstName": "Alice",
+    "lastName": "Usr2",
+    "email": "alice@usr2.com"
+  },
+  "role": "user"
+}

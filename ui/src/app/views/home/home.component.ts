@@ -25,7 +25,24 @@ export class HomeComponent extends View implements OnInit {
     subscription.pipe(take(1)).subscribe({
       next: userProfile => {
         if (userProfile) {
-          this.socketService.initialise("api/updates", update => publishEvent(update.type, update));
+          this.socketService.initialise(
+            "api/updates",
+            update => publishEvent(update.type, update),
+            true,
+            undefined,
+            // Source the websocket credential from the Keycloak session. Refresh the token
+            // before every (re)connect so reconnects use a valid bearer token.
+            async () => {
+              try {
+                await this.authService.updateToken(30);
+              } catch (ignored) {
+                // fall through with whatever token we currently have
+              }
+              return {
+                token: this.authService.token,
+                impersonation: localStorage.getItem("X-Impersonation") ?? undefined
+              };
+            });
         } else {
           this.authService.logout();
         }
