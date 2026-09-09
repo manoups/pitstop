@@ -33,3 +33,6 @@ build/
 /.idea/
 
 node_modules/
+
+### Local secrets (never commit) ###
+application-local.properties
